@@ -16,3 +16,16 @@
 set_global _enable_mmmc_by_default_flow      $CTE::mmmc_default
 suppressMessage ENCEXT-2799
 getVersion
+create_library_set -name TYPlib -timing $TIMING_LIB_FILES
+create_library_set -name TYPlib -timing $TIMING_LIB_FILES
+init_design -netlist /home/jy5187/Documents/soc/aes-accelerator/cpu/syn/outputs/picorv32_axi.v -top picorv32_axi -overwrite
+create_library_set -name TYPlib -timing $TIMING_LIB_FILES
+create_constraint_mode -name CONSTR_MODE -sdc_files $SDC_FILE
+init_design -netlist /home/jy5187/Documents/soc/aes-accelerator/cpu/syn/outputs/picorv32_axi.v -top picorv32_axi -overwrite
+create_library_set -name TYPlib -timing $TIMING_LIB_FILES
+create_constraint_mode -name CONSTR_MODE -sdc_files $SDC_FILE
+create_library_set -name TYPlib -timing $TIMING_LIB_FILES
+create_constraint_mode -name CONSTR_MODE -sdc_files $SDC_FILE
+create_library_set -name TYPlib -timing $TIMING_LIB_FILES
+create_constraint_mode -name CONSTR_MODE -sdc_files $SDC_FILE
+win

@@ -12,6 +12,7 @@ set MAP_EFFORT   high
 set DESIGN       {picorv32_axi}
 set SDC_FILE design_constraints.sdc
 set THE_DATE  [exec date +%m%d.%H%M]
+set LIBRARY  {N16ADFP_StdCellss0p72v125c_ccs.lib}
 
 set top_module $DESIGN
 set SYN_EFF high

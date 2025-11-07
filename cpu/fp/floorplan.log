@@ -34,3 +34,49 @@ can't read "DESIGN": no such variable
 invalid command name "include"
 **ERROR: (IMPDBTCL-247):	'information_level' is not a recognized object or root attribute. Run 'help root:' to get a list of all root attributes, or 'man get_db' for more information about accessing objects and attributes.
 
+can't read "DATE": no such variable
+**ERROR: (IMPDBTCL-247):	'tech_file' is not a recognized object or root attribute. Run 'help root:' to get a list of all root attributes, or 'man get_db' for more information about accessing objects and attributes.
+
+**ERROR: (IMPDBTCL-247):	'lef_files' is not a recognized object or root attribute. Run 'help root:' to get a list of all root attributes, or 'man get_db' for more information about accessing objects and attributes.
+
+**ERROR: (IMPDBTCL-247):	'lef_files' is not a recognized object or root attribute. Run 'help root:' to get a list of all root attributes, or 'man get_db' for more information about accessing objects and attributes.
+
+**ERROR: (IMPDBTCL-247):	'timing_library' is not a recognized object or root attribute. Run 'help root:' to get a list of all root attributes, or 'man get_db' for more information about accessing objects and attributes.
+
+**ERROR: (IMPDBTCL-247):	'library' is not a recognized object or root attribute. Run 'help root:' to get a list of all root attributes, or 'man get_db' for more information about accessing objects and attributes.
+
+**ERROR: (IMPDBTCL-247):	'init_hdl_search_path' is not a recognized object or root attribute. Run 'help root:' to get a list of all root attributes, or 'man get_db' for more information about accessing objects and attributes.
+
+<CMD> create_library_set -name TYPlib -timing $TIMING_LIB_FILES
+invalid command name "read_hdl"
+<CMD> create_library_set -name TYPlib -timing $TIMING_LIB_FILES
+<CMD> init_design -netlist /home/jy5187/Documents/soc/aes-accelerator/cpu/syn/outputs/picorv32_axi.v -top picorv32_axi -overwrite
+
+Usage: init_design [-help] [-setup <string> -hold <string>]
+
+**ERROR: (IMPTCM-48):	"-netlist" is not a legal option for command "init_design". Either the current option or an option prior to it is not specified correctly.
+  
+<CMD> create_library_set -name TYPlib -timing $TIMING_LIB_FILES
+<CMD> create_constraint_mode -name CONSTR_MODE -sdc_files $SDC_FILE
+<CMD> init_design -netlist /home/jy5187/Documents/soc/aes-accelerator/cpu/syn/outputs/picorv32_axi.v -top picorv32_axi -overwrite
+
+Usage: init_design [-help] [-setup <string> -hold <string>]
+
+**ERROR: (IMPTCM-48):	"-netlist" is not a legal option for command "init_design". Either the current option or an option prior to it is not specified correctly.
+  
+<CMD> create_library_set -name TYPlib -timing $TIMING_LIB_FILES
+<CMD> create_constraint_mode -name CONSTR_MODE -sdc_files $SDC_FILE
+invalid command name "read_lef"
+<CMD> create_library_set -name TYPlib -timing $TIMING_LIB_FILES
+<CMD> create_constraint_mode -name CONSTR_MODE -sdc_files $SDC_FILE
+invalid command name "read_verilog"
+<CMD> create_library_set -name TYPlib -timing $TIMING_LIB_FILES
+<CMD> create_constraint_mode -name CONSTR_MODE -sdc_files $SDC_FILE
+invalid command name "read_sdc"
+<CMD> win
+**WARN: (IMPSYT-1507):	The display is invalid and will start in no window mode
+
+*** Memory Usage v#2 (Current mem = 1696.027M, initial mem = 839.789M) ***
+*** Message Summary: 1 warning(s), 12 error(s)
+
+--- Ending "Innovus" (totcpu=0:00:25.7, real=3:21:22, mem=1696.0M) ---

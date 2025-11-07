@@ -53,3 +53,58 @@ Type 'man IMPOAX-332' for more detail.
 [11/06 22:11:17     17s] invalid command name "include"
 [11/06 22:11:30     17s] **ERROR: (IMPDBTCL-247):	'information_level' is not a recognized object or root attribute. Run 'help root:' to get a list of all root attributes, or 'man get_db' for more information about accessing objects and attributes.
 
+[11/06 22:31:30     18s] can't read "DATE": no such variable
+[11/06 22:31:48     18s] **ERROR: (IMPDBTCL-247):	'tech_file' is not a recognized object or root attribute. Run 'help root:' to get a list of all root attributes, or 'man get_db' for more information about accessing objects and attributes.
+
+[11/06 22:48:16     19s] **ERROR: (IMPDBTCL-247):	'lef_files' is not a recognized object or root attribute. Run 'help root:' to get a list of all root attributes, or 'man get_db' for more information about accessing objects and attributes.
+
+[11/06 22:53:04     19s] **ERROR: (IMPDBTCL-247):	'lef_files' is not a recognized object or root attribute. Run 'help root:' to get a list of all root attributes, or 'man get_db' for more information about accessing objects and attributes.
+
+[11/06 22:53:09     19s] **ERROR: (IMPDBTCL-247):	'timing_library' is not a recognized object or root attribute. Run 'help root:' to get a list of all root attributes, or 'man get_db' for more information about accessing objects and attributes.
+
+[11/06 22:55:16     19s] **ERROR: (IMPDBTCL-247):	'library' is not a recognized object or root attribute. Run 'help root:' to get a list of all root attributes, or 'man get_db' for more information about accessing objects and attributes.
+
+[11/06 22:55:55     19s] **ERROR: (IMPDBTCL-247):	'init_hdl_search_path' is not a recognized object or root attribute. Run 'help root:' to get a list of all root attributes, or 'man get_db' for more information about accessing objects and attributes.
+
+[11/06 22:56:08     19s] <CMD> create_library_set -name TYPlib -timing $TIMING_LIB_FILES
+[11/06 22:56:08     19s] invalid command name "read_hdl"
+[11/06 22:56:21     19s] <CMD> create_library_set -name TYPlib -timing $TIMING_LIB_FILES
+[11/06 22:56:21     19s] <CMD> init_design -netlist /home/jy5187/Documents/soc/aes-accelerator/cpu/syn/outputs/picorv32_axi.v -top picorv32_axi -overwrite
+[11/06 22:56:21     19s] 
+[11/06 22:56:21     19s] Usage: init_design [-help] [-setup <string> -hold <string>]
+[11/06 22:56:21     19s] 
+[11/06 22:56:21     19s] **ERROR: (IMPTCM-48):	"-netlist" is not a legal option for command "init_design". Either the current option or an option prior to it is not specified correctly.
+  
+[11/06 23:02:53     19s] <CMD> create_library_set -name TYPlib -timing $TIMING_LIB_FILES
+[11/06 23:02:53     19s] <CMD> create_constraint_mode -name CONSTR_MODE -sdc_files $SDC_FILE
+[11/06 23:02:53     19s] <CMD> init_design -netlist /home/jy5187/Documents/soc/aes-accelerator/cpu/syn/outputs/picorv32_axi.v -top picorv32_axi -overwrite
+[11/06 23:02:53     19s] 
+[11/06 23:02:53     19s] Usage: init_design [-help] [-setup <string> -hold <string>]
+[11/06 23:02:53     19s] 
+[11/06 23:02:53     19s] **ERROR: (IMPTCM-48):	"-netlist" is not a legal option for command "init_design". Either the current option or an option prior to it is not specified correctly.
+  
+[11/07 01:21:45     25s] <CMD> create_library_set -name TYPlib -timing $TIMING_LIB_FILES
+[11/07 01:21:45     25s] <CMD> create_constraint_mode -name CONSTR_MODE -sdc_files $SDC_FILE
+[11/07 01:21:45     25s] invalid command name "read_lef"
+[11/07 01:21:51     25s] <CMD> create_library_set -name TYPlib -timing $TIMING_LIB_FILES
+[11/07 01:21:51     25s] <CMD> create_constraint_mode -name CONSTR_MODE -sdc_files $SDC_FILE
+[11/07 01:21:51     25s] invalid command name "read_verilog"
+[11/07 01:21:54     25s] <CMD> create_library_set -name TYPlib -timing $TIMING_LIB_FILES
+[11/07 01:21:54     25s] <CMD> create_constraint_mode -name CONSTR_MODE -sdc_files $SDC_FILE
+[11/07 01:21:54     25s] invalid command name "read_sdc"
+[11/07 01:27:37     25s] <CMD> win
+[11/07 01:27:37     25s] **WARN: (IMPSYT-1507):	The display is invalid and will start in no window mode
+[11/07 01:31:36     25s] 
+[11/07 01:31:36     25s] *** Memory Usage v#2 (Current mem = 1696.027M, initial mem = 839.789M) ***
+[11/07 01:31:36     25s] 
+[11/07 01:31:36     25s] *** Summary of all messages that are not suppressed in this session:
+[11/07 01:31:36     25s] Severity  ID               Count  Summary                                  
+[11/07 01:31:36     25s] ERROR     IMPDBTCL-247         7  '%s' is not a recognized object or root ...
+[11/07 01:31:36     25s] WARNING   IMPSYT-1507          1  The display is invalid and will start in...
+[11/07 01:31:36     25s] ERROR     IMPSYT-6696          1  Initfile (%s) does not exist.            
+[11/07 01:31:36     25s] ERROR     IMPOAX-124           1  OpenAccess (OA) shared library installat...
+[11/07 01:31:36     25s] ERROR     IMPOAX-332           1  Failed to initialize OpenAccess (OA) dat...
+[11/07 01:31:36     25s] ERROR     IMPTCM-48            2  "%s" is not a legal option for command "...
+[11/07 01:31:36     25s] *** Message Summary: 1 warning(s), 12 error(s)
+[11/07 01:31:36     25s] 
+[11/07 01:31:36     25s] --- Ending "Innovus" (totcpu=0:00:25.7, real=3:21:22, mem=1696.0M) ---

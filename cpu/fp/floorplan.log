@@ -1,0 +1,36 @@
+
+Cadence Innovus(TM) Implementation System.
+Copyright 2024 Cadence Design Systems, Inc. All rights reserved worldwide.
+
+Version:	v23.14-s088_1, built Fri Feb 28 12:25:44 PST 2025
+Options:	-file innovus_floorplan.tcl -log floorplan.log 
+Date:		Thu Nov  6 22:10:14 2025
+Host:		ecs03.poly.edu (x86_64 w/Linux 4.18.0-553.71.1.el8_10.x86_64) (32cores*64cpus*Intel(R) Xeon(R) Gold 6338N CPU @ 2.20GHz 49152KB)
+OS:		Red Hat Enterprise Linux 8.10 (Ootpa)
+
+License:
+		[22:10:14.268627] Configured Lic search path (23.02-s006): 5281@pyke.poly.edu:/opt/cadence/License/cadence.lic:27020@pyke.poly.edu
+
+		invs	Innovus Implementation System	23.1	checkout succeeded
+		8 CPU jobs allowed with the current license(s). Use setMultiCpuUsage to set your required CPU count.
+**WARN: (IMPSYT-1507):	The display is invalid and will start in no window mode
+**ERROR: (IMPOAX-124):	OpenAccess (OA) shared library installation is older than the one that was used to build this Innovus version. For using the OA installation built and tested with this Innovus version, unset the shell variable OA_HOME. For using 'p020' or higher version of OA, reset OA_HOME to point to that installation.
+Type 'man IMPOAX-124' for more detail.
+**ERROR: (IMPOAX-332):	Failed to initialize OpenAccess (OA) database. OA related commands cannot be run in this session. Confirm that the OA shared library is installed and OA_HOME is set correctly. Typically the OA_HOME environment variable should not be set.
+Type 'man IMPOAX-332' for more detail.
+INFO: OA features are disabled in this session.
+Change the soft stacksize limit to 0.2%RAM (2029 mbytes). Set global soft_stack_size_limit to change the value.
+Info: Process UID = 713070 / 5885e1af-bd7c-4342-8cad-56aec848d3e9 / JzmnlowOPo
+
+**INFO:  MMMC transition support version v31-84 
+
+<CMD> set_global _enable_mmmc_by_default_flow      $CTE::mmmc_default
+<CMD> suppressMessage ENCEXT-2799
+<CMD> getVersion
+[INFO] Loading PVS 23.11 fill procedures
+**WARN: Tk package not loaded. The PVS fill DRC monitor is disabled.
+**ERROR: (IMPSYT-6696):	Initfile (innovus_floorplan.tcl) does not exist.
+can't read "DESIGN": no such variable
+invalid command name "include"
+**ERROR: (IMPDBTCL-247):	'information_level' is not a recognized object or root attribute. Run 'help root:' to get a list of all root attributes, or 'man get_db' for more information about accessing objects and attributes.
+

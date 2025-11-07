@@ -6,7 +6,7 @@ module sub_bytes (
 	output logic sub_ready
 );
 timeunit 1ns/1ps;
-	logic [127:0] out_comb; // combinational SubBytes result
+	logic [127:0] out_comb; 
 
 	genvar i;
 	generate
@@ -18,7 +18,7 @@ timeunit 1ns/1ps;
 		end
 	endgenerate
 
-    // Register the output: 1-cycle latency, gated by enable
+    
     always_ff @(posedge clk) begin
 		if (enable) begin
 			out <= out_comb;
@@ -32,6 +32,7 @@ timeunit 1ns/1ps;
     end
 
 endmodule
+
 
 
 

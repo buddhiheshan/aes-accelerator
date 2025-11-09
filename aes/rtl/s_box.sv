@@ -37,8 +37,8 @@ timeunit 1ns/1ps;
         8'h8c, 8'ha1, 8'h89, 8'h0d, 8'hbf, 8'he6, 8'h42, 8'h68,
         8'h41, 8'h99, 8'h2d, 8'h0f, 8'hb0, 8'h54, 8'hbb, 8'h16
     };
-always_comb begin
-    assign out = SBOX[in];
-end
+
+assign out = SBOX[in];
 endmodule
+
 

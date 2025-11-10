@@ -1,15 +1,10 @@
 set DATE [clock format [clock seconds] -format "%b%d"] 
 set OUTPUT_DIR "pnr/output_${DATE}"
+
 set fillerCells [list FILL16BWP16P90, FILL16BWP20P90, FILL1BWP16P90, FILL1BWP20P90, FILL2BWP16P90, FILL2BWP20P90, FILL32BWP16P90, FILL32BWP20P90, FILL3BWP16P90, FILL3BWP20P90, FILL4BWP16P90, FILL4BWP20P90, FILL64BWP16P90, FILL64BWP20P90, FILL8BWP16P90, FILL8BWP20P90]
 
-addFiller -cell $fillerCells -prefix FILLER -doDRC
-addFiller -cell $fillerCells -prefix FILLER -doDRC
-addFiller -cell $fillerCells -prefix FILLER -doDRC
-
-# verify geometry
-setVerifyGeometryMode -area { 0 0 0 0 } -minWidth true -minSpacing true -minArea true -sameNet true -short true -overlap true -offRGrid false -offMGrid true -mergedMGridCheck true -minHole true -implantCheck true -minimumCut true -minStep true -viaEnclosure true -antenna false -insuffMetalOverlap true -pinInBlkg false -diffCellViol true -sameCellViol false -padFillerCellsOverlap true -routingBlkgPinOverlap true -routingCellBlkgOverlap true -regRoutingOnly false -stackedViasOnRegNet false -wireExt true -useNonDefaultSpacing false -maxWidth true -maxNonPrefLength -1 -error 1000
-verifyGeometry
-setVerifyGeometryMode -area { 0 0 0 0 }
+getFillerMode -quiet
+addFiller -cell FILL8BWP20P90 FILL8BWP16P90 FILL64BWP20P90 FILL64BWP16P90 FILL4BWP20P90 FILL4BWP16P90 FILL3BWP20P90 FILL3BWP16P90 FILL32BWP20P90 FILL32BWP16P90 FILL2BWP20P90 FILL2BWP16P90 FILL1BWP20P90 FILL1BWP16P90 FILL16BWP20P90 FILL16BWP16P90 -prefix FILLER
 
 # verify DRC
 get_verify_drc_mode -disable_rules -quiet

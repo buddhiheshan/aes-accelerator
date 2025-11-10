@@ -2,6 +2,8 @@
 set DATE [clock format [clock seconds] -format "%b%d"] 
 set OUTPUT_DIR "pnr/output_${DATE}"
 
+# this script takes forever, so go get food or go to the gym while it runs
+
 # initial global routing
 setNanoRouteMode -quiet -timingEngine {}
 setNanoRouteMode -quiet -routeWithTimingDriven 1
@@ -32,11 +34,7 @@ setAnalysisMode -analysisType onChipVariation
 timeDesign -postRoute
 optDesign -postRoute -hold
 
-timeDesign -postRoute 
 report_timing
 setAnalysisMode -checkType hold
 report_timing 
 report_power
-report_constraint -all_violators
-report_ccopt_skew_group
-

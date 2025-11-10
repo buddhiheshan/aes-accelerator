@@ -1,11 +1,11 @@
 # Clock Tree Synthesis
 # https://www.youtube.com/watch?v=uQzycGOJWDU
+# https://community.cadence.com/cadence_technology_forums/f/digital-implementation/65348/undefined-scan-chain-error-during-innovus-place
 set DATE [clock format [clock seconds] -format "%b%d"] 
 set OUTPUT_DIR "pnr/output_${DATE}"
 
 create_ccopt_clock_tree_spec
-ccopt_design
+ccopt_design 
 
 timeDesign -postCTS
 optDesign -postCTS
-timeDesign -postCT

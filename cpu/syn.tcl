@@ -1,18 +1,15 @@
-# Genus
-# *************************************************
-# * Local Variable settings for this design
-# *************************************************
+# Genus - synthesis
 set LOCAL_DIR "[exec pwd]"
 set SYNTH_DIR $LOCAL_DIR
 set RTL_PATH $LOCAL_DIR/picorv32
-set LIB_PATH {/ip/tsmc/tsmc16adfp/stdcell/CCS}
+set LIB_PATH {/ip/tsmc/tsmc16adfp/stdcell/CCS /ip/tsmc/tsmc16adfp/sram/NLDM /ip/tsmc/tsmc16adfp/stdio/NLDM}
 set FILE_LIST  {picorv32.v}
 set SYN_EFFORT   high
 set MAP_EFFORT   high
 set DESIGN       {picorv32_axi}
 set SDC_FILE design_constraints.sdc
 set THE_DATE  [exec date +%m%d.%H%M]
-set LIBRARY  {N16ADFP_StdCellss0p72v125c_ccs.lib}
+set LIBRARY  {N16ADFP_StdCellss0p72v125c_ccs.lib N16ADFP_StdCellff0p88vm40c_ccs.lib N16ADFP_StdCelltt0p8v25c_ccs.lib N16ADFP_SRAM_ss0p72v0p72v125c_100a.lib N16ADFP_SRAM_ff0p88v0p88vm40c_100a.lib N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib N16ADFP_StdIOss0p72v1p62v125c.lib N16ADFP_StdIOff0p88v1p98vm40c.lib N16ADFP_StdIOtt0p8v1p8v25c.lib}
 
 set top_module $DESIGN
 set SYN_EFF high

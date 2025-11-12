@@ -58,7 +58,7 @@ module key_expansion (
 
   // Outputs only when ready=1
   assign index     = ready ? emitted_idx : 4'd0;
-  assign round_key = ready ? emitted_key : 128'd0;
+  assign round_key = ready ? emitted_key : emitted_key; //128'd0;
 
   // Step on each ready pulse
   always @(posedge ready) begin

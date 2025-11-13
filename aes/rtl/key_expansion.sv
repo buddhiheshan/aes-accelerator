@@ -1,7 +1,7 @@
 module key_expansion (
   input  logic         ready,        // each posedge steps to next key
   input  logic [127:0] key_in,
-  output logic  [3:0]  index,        // valid only when ready=1
+  //output logic  [3:0]  index,        // valid only when ready=1
   output logic [127:0] round_key     // valid only when ready=1
 );
   timeunit 1ns/1ps;
@@ -12,7 +12,7 @@ module key_expansion (
   logic [127:0] emitted_key;
   logic [3:0]   emitted_idx;
 
-  // Power-up init 
+  // Power-up init (allowed on most FPGAs; remove for ASIC and add reset)
   initial begin
     loaded      = 1'b0;
     curr_key    = '0;
@@ -21,11 +21,11 @@ module key_expansion (
     emitted_idx = '0;
   end
 
-  
+  // Base selection for this pulse (first pulse uses key_in)
   wire [127:0] base_key = loaded ? curr_key : key_in;
   wire [3:0]   base_idx = loaded ? rnum     : 4'd0;
 
-  // RotWord/SubWord on last word of base_key
+  // --- RotWord/SubWord on last word of base_key ---
   wire [31:0] w0 = base_key[127:96];
   wire [31:0] w1 = base_key[95:64];
   wire [31:0] w2 = base_key[63:32];
@@ -39,7 +39,7 @@ module key_expansion (
   s_box u3 (.in(rw3), .out(sw3));
   wire [31:0] subword = {sw0, sw1, sw2, sw3};
 
-  // Rcon lookup 
+  // Rcon lookup (clean, no syntax errors)
   localparam logic [7:0] RCON [0:10] = '{
     8'h00, 8'h01, 8'h02, 8'h04, 8'h08, 8'h10,
     8'h20, 8'h40, 8'h80, 8'h1B, 8'h36
@@ -48,7 +48,7 @@ module key_expansion (
     rcon8 = (j <= 4'd10) ? RCON[j] : 8'h00;
   endfunction
 
-  // Next key 
+  // Next key (for the *next* pulse)
   wire [31:0] temp      = subword ^ {rcon8(base_idx + 4'd1), 24'h0};
   wire [31:0] w0_next   = w0 ^ temp;
   wire [31:0] w1_next   = w1 ^ w0_next;
@@ -56,9 +56,9 @@ module key_expansion (
   wire [31:0] w3_next   = w3 ^ w2_next;
   wire [127:0] next_key = {w0_next, w1_next, w2_next, w3_next};
 
-  // Outputs only when ready=1
-  assign index     = ready ? emitted_idx : 4'd0;
-  assign round_key = ready ? emitted_key : 128'd0;
+  // Outputs only meaningful when ready=1
+  //assign index     = ready ? emitted_idx : 4'd0;
+  assign round_key = ready ? emitted_key : emitted_key; //128'd0;
 
   // Step on each ready pulse
   always @(posedge ready) begin

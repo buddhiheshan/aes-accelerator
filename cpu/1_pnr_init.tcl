@@ -30,9 +30,9 @@ puts "INFO: Loading Libraries..."
 set init_lef_file {/ip/tsmc/tsmc16adfp/tech/APR/N16ADFP_APR_Innovus/N16ADFP_APR_Innovus_11M.10a.tlef /ip/tsmc/tsmc16adfp/pll/LEF/lef/n16adfp_pll_100a_10lm.lef /ip/tsmc/tsmc16adfp/stdcell/LEF/lef/N16ADFP_StdCell.lef /ip/tsmc/tsmc16adfp/sram/LEF/N16ADFP_SRAM_100a.lef /ip/tsmc/tsmc16adfp/stdio/LEF/N16ADFP_StdIO.lef}
 set init_original_verilog_files syn/outputs/picorv32_axi.v
 set init_verilog syn/outputs/picorv32_axi.v
-set init_pwr_nets {"VDD" "VPP" }
-set init_gnd_nets {"VSS" "VBB"}
-
+set init_pwr_nets {"VDD" "VPP" "VDDM" "DVDD" "AHVDD"}
+set init_gnd_nets {"VSS" "VBB" "DVSS" "AHVSS"}
+#/ip/tsmc/tsmc16adfp/tech/APR/N16ADFP_APR_Innovus/N16ADFP_APR_Innovus_11M.10a.tlef /ip/tsmc/tsmc16adfp/pll/LEF/lef/n16adfp_pll_100a_10lm.lef /ip/tsmc/tsmc16adfp/sram/LEF/N16ADFP_SRAM_100a.lef /ip/tsmc/tsmc16adfp/stdcell/LEF/lef/N16ADFP_StdCell.lef /ip/tsmc/tsmc16adfp/stdio/LEF/N16ADFP_StdIO.lef
 set init_lef_check_antenna 1
 
 init_design

@@ -4,8 +4,8 @@
 set DATE [clock format [clock seconds] -format "%b%d"] 
 set OUTPUT_DIR "pnr/output_${DATE}"
 
-create_ccopt_clock_tree_spec
+create_clock_tree_spec
 ccopt_design 
 
-timeDesign -postCTS
-optDesign -postCTS
+time_design -post_cts report_dir $OUTPUT_DIR
+opt_design -post_cts report_dir $OUTPUT_DIR

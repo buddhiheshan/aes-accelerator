@@ -1,40 +1,19 @@
 # routing
-set DATE [clock format [clock seconds] -format "%b%d"] 
-set OUTPUT_DIR "pnr/output_${DATE}"
 
 # this script takes forever, so go get food or go to the gym while it runs
 
-# initial global routing
-setNanoRouteMode -quiet -timingEngine {}
-setNanoRouteMode -quiet -routeWithTimingDriven 1
-setNanoRouteMode -quiet -routeWithSiDriven 1
-setNanoRouteMode -quiet -routeWithSiPostRouteFix 0
-setNanoRouteMode -quiet -drouteStartIteration default
-setNanoRouteMode -quiet -routeTopRoutingLayer default
-setNanoRouteMode -quiet -routeBottomRoutingLayer default
-setNanoRouteMode -quiet -drouteEndIteration default
-setNanoRouteMode -quiet -routeWithTimingDriven true
-setNanoRouteMode -quiet -routeWithSiDriven true
-routeDesign -globalDetail
-
-# detailed routing
-setEndCapMode -reset
-setEndCapMode -boundary_tap false
-setNanoRouteMode -quiet -routeAntennaCellName {}
-setNanoRouteMode -quiet -routeAntennaCellName adiode
-setNanoRouteMode -quiet -routeTdrEffort 5
-setNanoRouteMode -quiet -routeTopRoutingLayer default
-setNanoRouteMode -quiet -routeBottomRoutingLayer default
-setNanoRouteMode -quiet -drouteEndIteration default
-setNanoRouteMode -quiet -routeWithTimingDriven true
-setNanoRouteMode -quiet -routeWithSiDriven true
-routeDesign -globalDetail -viaOpt -wireOpt
-
-setAnalysisMode -analysisType onChipVariation
-timeDesign -postRoute
-optDesign -postRoute -hold
-
-report_timing
-setAnalysisMode -checkType hold
-report_timing 
-report_power
+set_db route_detail_fix_antenna 1
+set_db route_antenna_diode_insertion 0
+set_db route_with_timing_driven 1
+set_db route_with_eco 0
+set_db route_with_litho_driven 0
+set_db route_detail_post_route_litho_repair 0
+set_db route_with_si_driven 1
+set_db route_detail_auto_stop 0
+set_db route_selected_net_only 0
+set_db design_top_routing_layer 9
+set_db design_bottom_routing_layer 1
+set_db route_detail_end_iteration 1
+set_db route_with_timing_driven true
+set_db route_with_si_driven true
+route_design -global_detail

@@ -1,19 +1,27 @@
 # Genus - synthesis
 set LOCAL_DIR "[exec pwd]"
 set SYNTH_DIR $LOCAL_DIR
-set RTL_PATH $LOCAL_DIR/picorv32
-set LIB_PATH {/ip/tsmc/tsmc16adfp/stdcell/CCS /ip/tsmc/tsmc16adfp/sram/NLDM /ip/tsmc/tsmc16adfp/stdio/NLDM}
-set FILE_LIST  {picorv32.v}
+#set RTL_PATH $LOCAL_DIR/verilog/picorv32
+#set FILE_LIST  {picorv32.v}
+#set DESIGN       {picorv32_axi}
+set RTL_PATH $LOCAL_DIR/example
+set FILE_LIST {example.v}
+set DESIGN {mux4to1}
+set LIB_PATH {/ip/tsmc/tsmc16adfp/stdcell/NLDM /ip/tsmc/tsmc16adfp/sram/NLDM /ip/tsmc/tsmc16adfp/stdio/NLDM /ip/tsmc/tsmc16adfp/pll/LIB}
 set SYN_EFFORT   high
 set MAP_EFFORT   high
-set DESIGN       {picorv32_axi}
+set OPT_EFFORT high
 set SDC_FILE design_constraints.sdc
 set THE_DATE  [exec date +%m%d.%H%M]
-set LIBRARY  {N16ADFP_StdCellss0p72v125c_ccs.lib N16ADFP_StdCellff0p88vm40c_ccs.lib N16ADFP_StdCelltt0p8v25c_ccs.lib N16ADFP_SRAM_ss0p72v0p72v125c_100a.lib N16ADFP_SRAM_ff0p88v0p88vm40c_100a.lib N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib N16ADFP_StdIOss0p72v1p62v125c.lib N16ADFP_StdIOff0p88v1p98vm40c.lib N16ADFP_StdIOtt0p8v1p8v25c.lib}
+set LIBRARY {N16ADFP_StdCelltt0p8v25c.lib N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib N16ADFP_StdIOtt0p8v1p8v25c.lib n16adfp_plltt0p8v1p8v25c.lib}
+
+#set_library_set tt_libset  {N16ADFP_StdCelltt0p8v25c.lib N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib N16ADFP_StdIOtt0p8v1p8v25c.lib n16adfp_plltt0p8v1p8v25c.lib}
+#set_operating_conditions -max tt_libset
+
+#set_library_set ff_libset {N16ADFP_StdCellff0p88vm40c.lib N16ADFP_SRAM_ff0p88v0p88vm40c_100a.lib N16ADFP_StdIOff0p88v1p98vm40c.lib n16adfp_pllff0p88v1p98vm40c.lib}
+#set_operating_conditions -min ff_libset
 
 set top_module $DESIGN
-set SYN_EFF high
-set MAP_EFF high
 set DATE [clock format [clock seconds] -format "%b%d"] 
 
 set _OUTPUTS_PATH syn/outputs/output_${DATE}
@@ -24,6 +32,7 @@ set_db information_level 7
 set_db init_lib_search_path ${LIB_PATH} 
 set_db init_hdl_search_path ${RTL_PATH} 
 set_db library $LIBRARY
+read_libs $LIBRARY
 
 read_hdl $FILE_LIST
 elaborate $DESIGN
@@ -45,19 +54,20 @@ if {![file exists ${_REPORTS_PATH}]} {
   puts "Creating directory ${_REPORTS_PATH}"
 }
 
-set_db syn_generic_effort medium
-set_db syn_map_effort medium 
-set_db syn_opt_effort medium
+set_db syn_generic_effort $SYN_EFFORT
+set_db syn_map_effort $MAP_EFFORT 
+set_db syn_opt_effort $OPT_EFFORT
 
 syn_generic 
 syn_map 
 syn_opt 
 
-
 report area $DESIGN > $_REPORTS_PATH/${DESIGN}_area.rpt
 report datapath $DESIGN > $_REPORTS_PATH/${DESIGN}_datapath_incr.rpt
 report gates $DESIGN > $_REPORTS_PATH/${DESIGN}_gates.rpt
-write_design -basename ${_OUTPUTS_PATH}/${DESIGN}
+report timing > $_REPORTS_PATH/${DESIGN}_timing.rpt
+report power > $_REPORTS_PATH/${DESIGN}_power.rpt
+
 write_hdl > ${_OUTPUTS_PATH}/${DESIGN}.v
 write_sdc > ${_OUTPUTS_PATH}/${DESIGN}.sdc
 write_sdf -timescale ns -nonegchecks -recrem split -edges check_edge -setuphold split > outputs/delay.sdf

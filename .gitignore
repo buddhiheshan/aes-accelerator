@@ -15,7 +15,6 @@ session.tcl
 *.dump
 *.dat
 *.sig
-*.view
 
 report/
 reports/

@@ -1,0 +1,24 @@
+//
+//  Rule file generated on Thu Nov 20 15:50:02 2025
+//  by Calibre Interactive v2024.2_29.16    Thu May 2 07:35:43 PDT 2024
+//
+//      *** PLEASE DO NOT MODIFY THIS FILE ***
+//
+//
+
+LAYOUT PATH "/home/jy5187/Documents/soc/aes-accelerator/cpu/picorv32/picorv32_axi.gds"
+LAYOUT SYSTEM GDSII
+LAYOUT PRIMARY "picorv32_axi"
+
+DRC RESULTS DATABASE "drc.results" ASCII
+DRC CELL NAME YES CELL SPACE XFORM
+
+DRC SUMMARY REPORT "drc.summary" REPLACE HIER
+
+DRC MAXIMUM RESULTS 1000
+
+DRC MAXIMUM VERTEX 4096
+
+DRC ICSTATION YES
+
+INCLUDE "/ip/tsmc/tsmc16adfp/tech/DRC/N16ADFP_DRC_Calibre/LOGIC_TopMr_DRC/N16ADFP_DRC_Calibre_11M.11_1a.encrypt"

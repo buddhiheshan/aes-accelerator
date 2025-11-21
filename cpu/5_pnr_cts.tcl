@@ -7,5 +7,5 @@ set OUTPUT_DIR "pnr/output_${DATE}"
 create_clock_tree_spec
 ccopt_design 
 
-time_design -post_cts report_dir $OUTPUT_DIR
-opt_design -post_cts report_dir $OUTPUT_DIR
+time_design -post_cts -report_dir $OUTPUT_DIR
+opt_design -post_cts -report_dir $OUTPUT_DIR

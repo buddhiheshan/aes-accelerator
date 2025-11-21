@@ -1,0 +1,23 @@
+create_rc_corner -name best_case -qrc_tech {/ip/tsmc/tsmc16adfp/tech/RC/N16ADFP_QRC/best/qrcTechFile} -pre_route_res {1.0} -pre_route_cap {1.0} -pre_route_clock_res {0.0} -pre_route_clock_cap {0.0} -post_route_res {1.0} -post_route_cap {1.0} -post_route_cross_cap {1.0}
+
+create_rc_corner -name worst_case -qrc_tech {/ip/tsmc/tsmc16adfp/tech/RC/N16ADFP_QRC/worst/qrcTechFile} -pre_route_res {1.0} -pre_route_cap {1.0} -pre_route_clock_res {0.0} -pre_route_clock_cap {0.0} -post_route_res {1.0} -post_route_cap {1.0} -post_route_cross_cap {1.0}
+
+create_library_set -name fast_case -timing {/ip/tsmc/tsmc16adfp/stdcell/NLDM/N16ADFP_StdCellff0p88vm40c.lib /ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_ff0p88v0p88vm40c_100a.lib /ip/tsmc/tsmc16adfp/stdio/NLDM/N16ADFP_StdIOff0p88v1p98vm40c.lib /ip/tsmc/tsmc16adfp/pll/LIB/n16adfp_pllff0p88v1p98vm40c.lib}
+
+create_timing_condition -name min_timing -library_sets fast_case
+
+create_library_set -name slow_case -timing {/ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib /ip/tsmc/tsmc16adfp/stdcell/NLDM/N16ADFP_StdCelltt0p8v25c.lib /ip/tsmc/tsmc16adfp/stdio/NLDM/N16ADFP_StdIOtt0p8v1p8v25c.lib /ip/tsmc/tsmc16adfp/pll/LIB/n16adfp_plltt0p8v1p8v25c.lib}
+
+create_timing_condition -name max_timing -library_sets slow_case
+
+create_constraint_mode -name const_mode -sdc_files {syn/outputs/output_Nov18/picorv32_axi.sdc}
+
+create_delay_corner -name early_case -timing_condition {min_timing} -rc_corner {best_case}
+
+create_delay_corner -name late_case -timing_condition {max_timing} -rc_corner {worst_case}
+
+create_analysis_view -name hold_case -constraint_mode {const_mode} -delay_corner {early_case}
+
+create_analysis_view -name setup_case -constraint_mode {const_mode} -delay_corner {late_case}
+
+set_analysis_view -setup {setup_case} -hold {hold_case}

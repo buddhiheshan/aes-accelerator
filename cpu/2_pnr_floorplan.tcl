@@ -6,7 +6,7 @@ set CORE_MARGIN 50
 set UTILIZATION 0.70
 
 set pspace 1
-set pwidth 1.25
+set pwidth 1
 set poffset 1
 
 set well_tap_offset 2
@@ -38,9 +38,9 @@ connect_global_net VDD -type pgpin -pin AHVDD -instanceBasename *
 connect_global_net VSS -type pgpin -pin DVSS -instanceBasename *
 connect_global_net VSS -type pgpin -pin AHVSS -instanceBasename *
 
-add_rings -nets {VDD VSS} -type core_rings -follow core -layer {top M8 bottom M8 left M9 right M9} -width {top $pwidth bottom $pwidth left $pwidth right $pwidth} -spacing {top $pspace bottom $pspace left $pspace right $pspace} -offset {top $poffset bottom $poffset left $poffset right $poffset} -center 0 -threshold 0 -jog_distance 0 -snap_wire_center_to_grid none
+add_rings -nets {VDD VSS} -type core_rings -follow core -layer {top M8 bottom M8 left M9 right M9} -width {top 1 bottom 1 left 1 right 1} -spacing {top 1 bottom 1 left 1 right 1} -offset {top 1 bottom 1 left 1 right 1} -center 0 -threshold 0 -jog_distance 0 -snap_wire_center_to_grid none
 
-add_well_taps -cell TAPCELLBWP16P90 -cell_interval $well_tap_interval -in_row_offset $well_tap_offset -prefix WELLTAP
+add_well_taps -cell TAPCELLBWP16P90 -cell_interval 13 -in_row_offset 13 -prefix WELLTAP
 
 add_endcaps -start_row_cap BOUNDARY_PTAPBWP16P90 -end_row_cap BOUNDARY_PTAPBWP16P90 -prefix ENDCAP
 
@@ -65,7 +65,7 @@ set_db add_stripes_allow_jog { padcore_ring  block_ring }
 set_db add_stripes_skip_via_on_pin {  standardcell }
 set_db add_stripes_skip_via_on_wire_shape {  noshape   }
 
-add_stripes -nets {VDD VSS} -layer M9 -direction vertical -width $pwidth -spacing $pspacing -set_to_set_distance $stripe_interval -start_from left -start_offset $stripe_offset -stop_offset 0 -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+add_stripes -nets {VDD VSS} -layer M9 -direction vertical -width 1 -spacing 1 -set_to_set_distance 22 -start_from left -start_offset 22 -stop_offset 0 -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
 set_db route_special_via_connect_to_shape { stripe }
 route_special -connect core_pin -layer_change_range { M1(1) M9(9) } -block_pin_target nearest_target -core_pin_target first_after_row_end -allow_jogging 1 -crossover_via_layer_range { M1(1) M9(9) } -nets { VDD VSS } -allow_layer_change 1 -target_via_layer_range { M1(1) M9(9) }

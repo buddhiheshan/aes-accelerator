@@ -1,12 +1,12 @@
 # Genus - synthesis
 set LOCAL_DIR "[exec pwd]"
 set SYNTH_DIR $LOCAL_DIR
-#set RTL_PATH $LOCAL_DIR/verilog/picorv32
-#set FILE_LIST  {picorv32.v}
-#set DESIGN       {picorv32_axi}
-set RTL_PATH $LOCAL_DIR/example
-set FILE_LIST {example.v}
-set DESIGN {mux4to1}
+set RTL_PATH $LOCAL_DIR/picorv32/verilog
+set FILE_LIST  {picorv32.v}
+set DESIGN       {picorv32_axi}
+#set RTL_PATH $LOCAL_DIR/example
+#set FILE_LIST {example.v}
+#set DESIGN {mux4to1}
 set LIB_PATH {/ip/tsmc/tsmc16adfp/stdcell/NLDM /ip/tsmc/tsmc16adfp/sram/NLDM /ip/tsmc/tsmc16adfp/stdio/NLDM /ip/tsmc/tsmc16adfp/pll/LIB}
 set SYN_EFFORT   high
 set MAP_EFFORT   high

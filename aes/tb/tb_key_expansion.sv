@@ -102,6 +102,7 @@ initial begin
             #20 ready_enc = 0;
         end
         
+        $display("Done");
         #100;
         $finish;
     end

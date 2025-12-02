@@ -5,6 +5,7 @@ module top_encryption (
     input logic reset_n,
     input logic start,
     input logic restart,
+    input logic set_new_key,
     output logic [127:0] cipher_text
 );
 timeunit 1ns/1ps;
@@ -81,10 +82,14 @@ mix_cols mix_columns(
 );
 
 key_expansion key_expansion(
-    .ready(ready_fsm),
+    .set_new_key(set_new_key),
     .key_in(key_in),
-    .restart(restart),
-    .round_key(round_key)
+    .start_enc(start),
+    .ready_enc(ready_fsm),
+    .key_enc(round_key),
+    .start_dec(1'b0),
+    .ready_dec(1'b0),
+    .key_dec()
 );
 
 encryption_fsm encryption_fsm(

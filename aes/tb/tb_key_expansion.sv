@@ -25,8 +25,8 @@ timeunit 1ns/1ps;
     );
 
 initial begin
-    $fsdbDumpfile("dump.fsdb");  
-    $fsdbDumpvars;
+    $dumpfile("dump.vcd");  
+    $dumpvars;
   end
 
     // Test Sequence 

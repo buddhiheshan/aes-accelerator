@@ -7,8 +7,8 @@ logic clk;
 logic reset_n;
 logic start;
 logic restart;
+logic set_new_key;
 logic [127:0] cipher_text;
-
 
 top_encryption dut(
     .clk(clk),
@@ -17,32 +17,39 @@ top_encryption dut(
     .reset_n(reset_n),
     .start(start),
     .restart(restart),
-    .cipher_text(cipher_text)
+    .cipher_text(cipher_text),
+    .set_new_key(set_new_key)
 );
 
 initial begin
-    $fsdbDumpfile("dump.fsdb");  
-    $fsdbDumpvars;
+    $dumpfile("dump.vcd");  
+    $dumpvars;
   end
 
 always #5 clk = ~clk;
 
-
-
 initial begin
     clk = 1'b1;
+    #6;
+    set_new_key =1'b1;
+    key_in = 128'h2b7e151628aed2a6abf7158809cf4f3c;
+    #10;
+    set_new_key =1'b0;
+
     plain_text = 128'h89c2abb23688ac1c675eb2d4cf2a263e;
-key_in = 128'h000102030405060708090A0B0C0D0E0F;
-reset_n = 1'b1;
-start = 1'b0;
-restart = 1'b0;
+    
+    reset_n = 1'b1;
+    start = 1'b0;
+    restart = 1'b0;
     #10;
     reset_n = 1'b0;
     #10;
     reset_n = 1'b1;
     #10;
-start = 1;
-#350;
+    start = 1;
+    #10;
+    start = 0;
+#500;
 $finish;
 
 end

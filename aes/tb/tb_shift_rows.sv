@@ -18,13 +18,13 @@ module tb_shift_rows ();
     endtask
 
     initial begin
-        input_state_encrypt = 128'h89c2abb23688ac1c675eb2d4cf2a263e;
+        input_state_encrypt = 128'hd42711aee0bf98f1b8b45de51e415230;
         #1;
-        check_output(output_state_encrypt , 128'h365e26b2672aab1ccfc2acd48988b23e);
+        check_output(output_state_encrypt , 128'hd4bf5d30e0b452aeb84111f11e2798e5);
 
-        input_state_decrypt = 128'h365e26b2672aab1ccfc2acd48988b23e;
+        input_state_decrypt = 128'hd4bf5d30e0b452aeb84111f11e2798e5;
         #1;
-        check_output(output_state_decrypt , 128'h89c2abb23688ac1c675eb2d4cf2a263e);
+        check_output(output_state_decrypt , 128'hd42711aee0bf98f1b8b45de51e415230);
     end
 
     initial begin

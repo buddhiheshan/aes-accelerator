@@ -28,6 +28,14 @@ initial begin
 
 always #5 clk = ~clk;
 
+task check_output(logic [127:0] output_state, logic [127:0] expected_output_state);
+        if (output_state !== expected_output_state) begin
+            $display("FAILED: Output state missmatch!");
+            $display("Expected: %h\nGot: %h", expected_output_state, output_state);
+        end
+        else $display("PASS");
+endtask
+
 initial begin
     clk = 1'b1;
     #6;
@@ -36,7 +44,7 @@ initial begin
     #10;
     set_new_key =1'b0;
 
-    plain_text = 128'h89c2abb23688ac1c675eb2d4cf2a263e;
+    plain_text = 128'h3243f6a8885a308d313198a2e0370734;
     
     reset_n = 1'b1;
     start = 1'b0;
@@ -49,7 +57,9 @@ initial begin
     start = 1;
     #10;
     start = 0;
-#500;
+
+    #500;
+    check_output(cipher_text, 128'h3925841d02dc09fbdc118597196a0b32);
 $finish;
 
 end

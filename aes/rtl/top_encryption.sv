@@ -107,9 +107,16 @@ add_roundkey final_add_round_key(
     .output_state(final_cipher)
 );
 
+dff reg_cipher_text(
+    .clk(clk),
+    .reset_n(reset_n),
+    .en(done),
+    .d(final_cipher),
+    .q(cipher_text)
+);
 
 
-assign cipher_text = done? final_cipher : 128'd0;
+// assign cipher_text = done? final_cipher : 128'd0;
 
 
 endmodule

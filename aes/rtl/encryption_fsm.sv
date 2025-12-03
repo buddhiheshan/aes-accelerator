@@ -38,13 +38,13 @@ always_comb begin
     round_count_next = round_count;
     round_cycle_count_next = 0;
     mux_sel = 0;
+    done = 1'b0;
 
     case (state)
         IDLE: begin
                 if (start) begin
                     next_state = INITIAL_ROUND;
                     round_cycle_count_next = 0;
-                    done = 1'b0;
                 end
                 else next_state = IDLE;
             end

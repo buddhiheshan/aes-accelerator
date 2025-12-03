@@ -79,7 +79,7 @@ module mix_cols #(
   genvar gi;
   generate
     for (gi = 0; gi < 16; gi++) begin : UNPACK
-      assign s[gi] = input_state[8*gi +: 8];
+      assign s[gi] = input_state[127 - (8*gi) -: 8];
     end
   endgenerate
 
@@ -120,7 +120,7 @@ module mix_cols #(
   // ----------------------- Pack back into 128-bit -------------------------
   generate
     for (gi = 0; gi < 16; gi++) begin : PACK
-      assign output_state[8*gi +: 8] = t[gi];
+      assign output_state[127 - (8*gi) -: 8] = t[gi];
     end
   endgenerate
 

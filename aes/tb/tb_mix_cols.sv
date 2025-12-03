@@ -18,13 +18,13 @@ module tb_mix_cols ();
     endtask
 
     initial begin
-        input_state_encrypt = 128'h89c2abb23688ac1c675eb2d4cf2a263e;
+        input_state_encrypt = 128'hd4bf5d30e0b452aeb84111f11e2798e5;
         #1;
-        check_output(output_state_encrypt , 128'h365e26b2672aab1ccfc2acd48988b23e);
+        check_output(output_state_encrypt , 128'h046681e5e0cb199a48f8d37a2806264c);
 
-        input_state_decrypt = 128'h365e26b2672aab1ccfc2acd48988b23e;
+        input_state_decrypt = 128'h046681e5e0cb199a48f8d37a2806264c;
         #1;
-        check_output(output_state_decrypt , 128'h89c2abb23688ac1c675eb2d4cf2a263e);
+        check_output(output_state_decrypt , 128'hd4bf5d30e0b452aeb84111f11e2798e5);
     end
 
     initial begin

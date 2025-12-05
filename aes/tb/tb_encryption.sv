@@ -1,4 +1,4 @@
-module tb_top_encryption;
+module tb_encryption;
 timeunit 1ns/1ps;
 
 logic [127:0] plain_text;
@@ -10,7 +10,7 @@ logic restart;
 logic set_new_key;
 logic [127:0] cipher_text;
 
-top_encryption dut(
+encryption dut(
     .clk(clk),
     .plain_text(plain_text),
     .key_in(key_in),

@@ -1,12 +1,12 @@
-module top_encryption (
+module encryption (
     input logic [127:0] plain_text,
     input logic [127:0] key_in,
     input logic clk,
     input logic reset_n,
     input logic start,
-    input logic restart,
-    input logic set_new_key,
-    output logic [127:0] cipher_text
+    output logic ready_enc,
+    output logic [127:0] cipher_text,
+    output logic done_enc
 );
 timeunit 1ns/1ps;
 
@@ -14,8 +14,7 @@ logic [127:0] after_mc;             // wire after mix columns
 logic mux_sel;                      // wire for mux select from encryption_fsm
 logic [127:0] after_mux;            // wire after mux operation
 logic [127:0] after_1_pipe;         // wire after 1st pipeline register
-
-logic [127:0] round_key;            // round_key wire from key_expansion module        
+       
 logic [127:0] after_ark;            // wire after add round key
 
 logic [127:0] after_2_pipe;         // wire after 2nd pipeline register
@@ -47,7 +46,7 @@ pipeline_reg first_register(
 
 add_roundkey add_round_key(
     .input_state(after_1_pipe),
-    .key(round_key),
+    .key(key_in),
     .output_state(after_ark)
 );
 
@@ -81,39 +80,29 @@ mix_cols mix_columns(
     .output_state(after_mc)
 );
 
-key_expansion key_expansion(
-    .set_new_key(set_new_key),
-    .key_in(key_in),
-    .start_enc(start),
-    .ready_enc(ready_fsm),
-    .key_enc(round_key),
-    .start_dec(1'b0),
-    .ready_dec(1'b0),
-    .key_dec()
-);
 
 encryption_fsm encryption_fsm(
     .clk(clk),
     .reset_n(reset_n),
     .start(start),
     .mux_sel(mux_sel),
-    .req_key(ready_fsm),
-    .done(done)
+    .req_key(ready_enc),
+    .done(done_enc)
 );
 
 add_roundkey final_add_round_key(
     .input_state(after_3_pipe),
-    .key(round_key),
-    .output_state(final_cipher)
+    .key(key_in),
+    .output_state(cipher_text)
 );
 
-dff reg_cipher_text(
-    .clk(clk),
-    .reset_n(reset_n),
-    .en(done),
-    .d(final_cipher),
-    .q(cipher_text)
-);
+// dff reg_cipher_text(
+//     .clk(clk),
+//     .reset_n(reset_n),
+//     .en(done),
+//     .d(final_cipher),
+//     .q(cipher_text)
+// );
 
 
 // assign cipher_text = done? final_cipher : 128'd0;

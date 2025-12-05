@@ -1,3 +1,6 @@
 a.out
-simv
-wave.vcd
+simv*
+*.vcd
+csrc/
+verdi*
+*.key

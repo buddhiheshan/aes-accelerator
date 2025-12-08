@@ -8,7 +8,10 @@ module aes_core (
     output logic [127:0] cipher_text_out,
     input set_key,
     input logic [127:0] key, 
-    input start_enc, start_dec
+    input start_enc, start_dec,
+
+    output logic         done_enc,
+    output logic         done_dec
 );
 
 timeunit 1ns/1ps;
@@ -16,6 +19,8 @@ timeunit 1ns/1ps;
 logic [127:0] key_out, key_enc, key_dec;
 
 logic [127:0] plain_text_reg_in, plain_text_reg_out, cipher_text_reg_in, cipher_text_reg_out, cipher_text, plain_text;
+
+logic ready_enc, ready_dec;
 
 dff reg_plain_text(
     .clk(clk),

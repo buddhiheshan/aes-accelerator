@@ -26,7 +26,6 @@ logic [127:0] after_3_pipe;         // wire after 3rd pipeline register
 
 logic ready_fsm;                    // ready signal from encryption_fsm ----- the control module
 
-logic [127:0] final_cipher;         // wire after second add round key module
 logic done;
 
 mux2to1 initial_mux (

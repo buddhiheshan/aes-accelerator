@@ -8,7 +8,7 @@ logic reset_n;
 logic set_plain_text;
 logic set_cipher_text;
 logic set_new_key;
-logic start_enc, start_dec;
+logic start_enc, start_dec, done_dec, done_enc;
 logic [127:0] cipher_text_in, cipher_text_out;
 
 aes_core dut(
@@ -23,7 +23,9 @@ aes_core dut(
     .set_key(set_new_key),
     .key(key_in),
     .start_enc(start_enc),
-    .start_dec(start_dec)
+    .start_dec(start_dec),
+    .done_enc(done_enc),
+    .done_dec(done_dec)
 );
 
 initial begin
@@ -81,6 +83,7 @@ initial begin
     @(negedge clk);
     start_enc = 1'b1;
 
+    @(negedge clk);
     @(negedge clk);
     start_enc = 1'b0;
     check_output(plain_text_out, 128'h3243f6a8885a308d313198a2e0370734);

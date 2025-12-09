@@ -198,7 +198,7 @@ module tb_top_aes;
   // (Assuming your core implements AES-128 standard)
   // ----------------------------------------------------------------
   logic [127:0] key_128;
-  logic [127:0] pt_128;
+  logic [127:0] pt_128, pt_128_new;
   logic [127:0] ct_exp_128;
   logic [127:0] ct_obs_128;
   logic [127:0] pt_dec_128;
@@ -277,6 +277,13 @@ module tb_top_aes;
     end else begin
       $display("[%0t] Encryption matches expected vector.", $time);
     end
+
+    pt_128_new     = 0;
+
+    axi_write(PT_IN0_ADDR, pt_128_new[ 31:  0]);
+    axi_write(PT_IN1_ADDR, pt_128_new[ 63: 32]);
+    axi_write(PT_IN2_ADDR, pt_128_new[ 95: 64]);
+    axi_write(PT_IN3_ADDR, pt_128_new[127: 96]);
 
     // ------------------------------------------------------------
     // 5) Decrypt: load ciphertext as CT_IN, then START_DEC

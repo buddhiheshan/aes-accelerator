@@ -2,23 +2,34 @@ module tb_encryption;
 timeunit 1ns/1ps;
 
 logic [127:0] plain_text;
-logic [127:0] key_in;
+logic [127:0] key_in, key_enc;
 logic clk;
 logic reset_n;
 logic start;
-logic restart;
 logic set_new_key;
 logic [127:0] cipher_text;
+logic done_enc;
 
 encryption dut(
     .clk(clk),
     .plain_text(plain_text),
-    .key_in(key_in),
+    .key_in(key_enc),
     .reset_n(reset_n),
     .start(start),
-    .restart(restart),
     .cipher_text(cipher_text),
-    .set_new_key(set_new_key)
+    .ready_enc(ready_enc),
+    .done_enc(done_enc)
+);
+
+key_expansion key_expansion_unit(
+    .set_new_key (set_new_key),
+    .key_in      (key_in),
+    .start_enc   (start),
+    .ready_enc   (ready_enc),
+    .key_enc     (key_enc),
+    .start_dec   (),
+    .ready_dec   (),
+    .key_dec     ()
 );
 
 initial begin
@@ -48,7 +59,7 @@ initial begin
     
     reset_n = 1'b1;
     start = 1'b0;
-    restart = 1'b0;
+
     #10;
     reset_n = 1'b0;
     #10;
@@ -58,8 +69,10 @@ initial begin
     #10;
     start = 0;
 
-    #500;
+    @(negedge done_enc);
     check_output(cipher_text, 128'h3925841d02dc09fbdc118597196a0b32);
+
+    #500;
 $finish;
 
 end

@@ -20,7 +20,7 @@ module system_top;
         resetn = 1;    // Release reset
         
         // Run simulation for 5000ns then stop
-        #5000;         
+        #5000000;         
         $display("--- Simulation Timeout ---");
         $finish;
     end
@@ -63,7 +63,7 @@ module system_top;
 
     localparam SRAM_BASE = 32'h0000_0000;
     localparam SRAM_SIZE = 32'h0000_0200;
-    localparam AES_BASE  = 32'h0000_0400;
+    localparam AES_BASE  = 32'h0000_0300;
 		
     wire sram_sel_aw = (mem_axi_awaddr >= SRAM_BASE) && (mem_axi_awaddr < (SRAM_BASE + SRAM_SIZE));
     wire aes_sel_aw  = (mem_axi_awaddr >= AES_BASE) && (mem_axi_awaddr < (AES_BASE + 32'h100));

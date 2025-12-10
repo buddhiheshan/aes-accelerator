@@ -80,11 +80,11 @@ module axi_sram_512x45_wrapper (
         end else begin
             // Read Request
             if (axi_arvalid && !read_active && !axi_rvalid) begin
-                axi_arready <= 1'b1;
                 read_active <= 1'b1;
+                axi_arready <= 1'b1;
             end else begin
-                axi_arready <= 1'b0;
                 read_active <= 1'b0;
+                axi_arready <= 1'b0;
             end
 
             // Read Response

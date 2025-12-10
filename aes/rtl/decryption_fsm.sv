@@ -52,15 +52,17 @@ always_comb begin
         INITIAL_ROUND: begin
                 next_state = MID_ROUND;
                 round_count_next = round_count - 1;
-                round_cycle_count_next = 2;
+                round_cycle_count_next = 1;
             end
 
         MID_ROUND: begin
                 mux_sel = 1;
-                if (round_count === 1 && round_cycle_count === 0) begin
-                    next_state = LAST_ROUND;
-                    round_count_next = round_count - 1;
-                    round_cycle_count_next = 1;
+                if (round_count === 9 && round_cycle_count !== 0) begin
+                    mux_sel = 0;
+                end
+                if (round_count === 0 && round_cycle_count === 0) begin
+                    done = 1'b1;
+                    next_state = IDLE;
                 end
                 else if (round_cycle_count === 0) begin
                     next_state = MID_ROUND;
@@ -73,17 +75,17 @@ always_comb begin
                 end
             end
 
-        LAST_ROUND: begin
-                mux_sel = 1;
-                if(round_cycle_count === 0) begin
-                    next_state = IDLE;
-                end
-                else begin
-                    next_state = LAST_ROUND;
-                    round_cycle_count_next = round_cycle_count - 1;
-                    done = 1'b1;
-                end
-            end
+        // LAST_ROUND: begin
+        //         mux_sel = 1;
+        //         if(round_cycle_count === 0) begin
+        //             next_state = IDLE;
+        //         end
+        //         else begin
+        //             next_state = LAST_ROUND;
+        //             round_cycle_count_next = round_cycle_count - 1;
+        //             done = 1'b1;
+        //         end
+        //     end
 
     endcase
 end  

@@ -24,12 +24,14 @@ logic [127:0] after_shift_rows;     // wire after shift_rows;
 
 logic [127:0] after_3_pipe;         // wire after 3rd pipeline register
 
-logic ready_fsm;                    // ready signal from encryption_fsm ----- the control module
-
-logic done;
+add_roundkey initial_add_round_key(
+    .input_state(cipher_text),
+    .key(key_in),
+    .output_state(after_ark)
+);
 
 mux2to1 initial_mux (
-    .a(cipher_text),
+    .a(after_ark),
     .b(after_mc),
     .sel(mux_sel),
     .y(after_mux)
@@ -42,21 +44,8 @@ pipeline_reg first_register(
     .q(after_1_pipe)
 );
 
-add_roundkey add_round_key(
-    .input_state(after_1_pipe),
-    .key(key_in),
-    .output_state(after_ark)
-);
-
-pipeline_reg second_register(
-    .d(after_ark),
-    .clk(clk),
-    .reset_n(reset_n),
-    .q(after_2_pipe)
-);
-
 shift_rows #(.INVERSE(1)) shift_rows_inv(
-    .input_state(after_2_pipe),
+    .input_state(after_1_pipe),
     .output_state(after_shift_rows)
 );
 
@@ -65,8 +54,21 @@ sub_bytes_inv sub_bytes_inv(
     .out(after_sub_bytes)
 );
 
-pipeline_reg third_register(
+pipeline_reg second_register(
     .d(after_sub_bytes),
+    .clk(clk),
+    .reset_n(reset_n),
+    .q(after_2_pipe)
+);
+
+add_roundkey add_round_key(
+    .input_state(after_2_pipe),
+    .key(key_in),
+    .output_state(plain_text)
+);
+
+pipeline_reg third_register(
+    .d(plain_text),
     .clk(clk),
     .reset_n(reset_n),
     .q(after_3_pipe)
@@ -75,12 +77,6 @@ pipeline_reg third_register(
 mix_cols #(.INVERSE(1)) mix_columns_inv(
     .input_state(after_3_pipe),
     .output_state(after_mc)
-);
-
-add_roundkey final_add_round_key(
-    .input_state(after_3_pipe),
-    .key(key_in),
-    .output_state(plain_text)
 );
 
 decryption_fsm decryption_fsm(

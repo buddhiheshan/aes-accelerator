@@ -1,7 +1,12 @@
 // aes_axi_lite.sv
 module top_aes #(
-    parameter ADDR_WIDTH = 8,
-    parameter DATA_WIDTH = 32
+    // Width of AXI address bus
+    parameter int ADDR_WIDTH = 32,
+    // Base address of this AES peripheral in the system map
+    parameter [ADDR_WIDTH-1:0] BASE_ADDR = '0,
+    // Width of *internal* register offset (byte address inside the block)
+    parameter int OFFSET_WIDTH = 8,
+    parameter int DATA_WIDTH   = 32
 )(
     // AXI4-Lite clock & reset
     input  logic                     S_AXI_ACLK,
@@ -38,40 +43,56 @@ module top_aes #(
     timeunit 1ns/1ps;
     timeprecision 1ps;
 
-    // -----------------------------------------
-    // Address map
-    // -----------------------------------------
-    localparam CTRL_ADDR       = 8'h00;
-    localparam STATUS_ADDR     = 8'h04;
+    // ------------------------------------------------------------
+    // Compute local register offsets from BASE_ADDR
+    // ------------------------------------------------------------
+    // Byte offsets inside this peripheral (low OFFSET_WIDTH bits)
+   // full-width subtraction first
+    logic [ADDR_WIDTH-1:0] aw_addr_calc;
+    logic [ADDR_WIDTH-1:0] ar_addr_calc;
 
-    localparam KEY0_ADDR       = 8'h10;
-    localparam KEY1_ADDR       = 8'h14;
-    localparam KEY2_ADDR       = 8'h18;
-    localparam KEY3_ADDR       = 8'h1C;
+    assign aw_addr_calc = S_AXI_AWADDR - BASE_ADDR;
+    assign ar_addr_calc = S_AXI_ARADDR - BASE_ADDR;
 
-    localparam PT_IN0_ADDR     = 8'h20;
-    localparam PT_IN1_ADDR     = 8'h24;
-    localparam PT_IN2_ADDR     = 8'h28;
-    localparam PT_IN3_ADDR     = 8'h2C;
+    // now slice legally
+    wire [OFFSET_WIDTH-1:0] aw_offset = aw_addr_calc[OFFSET_WIDTH-1:0];
+    wire [OFFSET_WIDTH-1:0] ar_offset = ar_addr_calc[OFFSET_WIDTH-1:0];
 
-    localparam CT_IN0_ADDR     = 8'h30;
-    localparam CT_IN1_ADDR     = 8'h34;
-    localparam CT_IN2_ADDR     = 8'h38;
-    localparam CT_IN3_ADDR     = 8'h3C;
 
-    localparam CT_OUT0_ADDR    = 8'h40;
-    localparam CT_OUT1_ADDR    = 8'h44;
-    localparam CT_OUT2_ADDR    = 8'h48;
-    localparam CT_OUT3_ADDR    = 8'h4C;
+    // ------------------------------------------------------------
+    // Address map (byte offsets)
+    // ------------------------------------------------------------
+    localparam [OFFSET_WIDTH-1:0] CTRL_ADDR      = 8'h00;
+    localparam [OFFSET_WIDTH-1:0] STATUS_ADDR    = 8'h04;
 
-    localparam PT_OUT0_ADDR    = 8'h50;
-    localparam PT_OUT1_ADDR    = 8'h54;
-    localparam PT_OUT2_ADDR    = 8'h58;
-    localparam PT_OUT3_ADDR    = 8'h5C;
+    localparam [OFFSET_WIDTH-1:0] KEY0_ADDR      = 8'h10;
+    localparam [OFFSET_WIDTH-1:0] KEY1_ADDR      = 8'h14;
+    localparam [OFFSET_WIDTH-1:0] KEY2_ADDR      = 8'h18;
+    localparam [OFFSET_WIDTH-1:0] KEY3_ADDR      = 8'h1C;
 
-    // -----------------------------------------
+    localparam [OFFSET_WIDTH-1:0] PT_IN0_ADDR    = 8'h20;
+    localparam [OFFSET_WIDTH-1:0] PT_IN1_ADDR    = 8'h24;
+    localparam [OFFSET_WIDTH-1:0] PT_IN2_ADDR    = 8'h28;
+    localparam [OFFSET_WIDTH-1:0] PT_IN3_ADDR    = 8'h2C;
+
+    localparam [OFFSET_WIDTH-1:0] CT_IN0_ADDR    = 8'h30;
+    localparam [OFFSET_WIDTH-1:0] CT_IN1_ADDR    = 8'h34;
+    localparam [OFFSET_WIDTH-1:0] CT_IN2_ADDR    = 8'h38;
+    localparam [OFFSET_WIDTH-1:0] CT_IN3_ADDR    = 8'h3C;
+
+    localparam [OFFSET_WIDTH-1:0] CT_OUT0_ADDR   = 8'h40;
+    localparam [OFFSET_WIDTH-1:0] CT_OUT1_ADDR   = 8'h44;
+    localparam [OFFSET_WIDTH-1:0] CT_OUT2_ADDR   = 8'h48;
+    localparam [OFFSET_WIDTH-1:0] CT_OUT3_ADDR   = 8'h4C;
+
+    localparam [OFFSET_WIDTH-1:0] PT_OUT0_ADDR   = 8'h50;
+    localparam [OFFSET_WIDTH-1:0] PT_OUT1_ADDR   = 8'h54;
+    localparam [OFFSET_WIDTH-1:0] PT_OUT2_ADDR   = 8'h58;
+    localparam [OFFSET_WIDTH-1:0] PT_OUT3_ADDR   = 8'h5C;
+
+    // ------------------------------------------------------------
     // Internal register file (inputs + control)
-    // -----------------------------------------
+    // ------------------------------------------------------------
     logic [31:0] key_reg    [0:3];
     logic [31:0] pt_in_reg  [0:3];
     logic [31:0] ct_in_reg  [0:3];
@@ -79,9 +100,9 @@ module top_aes #(
     logic [31:0] reg_ctrl;
     logic [31:0] reg_status;
 
-    // -----------------------------------------
+    // ------------------------------------------------------------
     // Signals to AES core
-    // -----------------------------------------
+    // ------------------------------------------------------------
     logic         set_plain_text;
     logic         set_cipher_text;
     logic         set_key;
@@ -110,9 +131,10 @@ module top_aes #(
         ct_in_reg[3], ct_in_reg[2], ct_in_reg[1], ct_in_reg[0]
     };
 
-    // -----------------------------------------
+    // ------------------------------------------------------------
     // Instantiate AES core
-    // -----------------------------------------
+    // (your aes_core module from earlier)
+    // ------------------------------------------------------------
     aes_core u_aes_core (
         .clk             (S_AXI_ACLK),
         .reset_n         (S_AXI_ARESETN),
@@ -135,9 +157,9 @@ module top_aes #(
         .done_dec        (done_dec)
     );
 
-    // -----------------------------------------
+    // ------------------------------------------------------------
     // Busy & status bits (based on start/done)
-    // -----------------------------------------
+    // ------------------------------------------------------------
     logic enc_busy, dec_busy;
 
     always_ff @(posedge S_AXI_ACLK or negedge S_AXI_ARESETN) begin
@@ -157,18 +179,17 @@ module top_aes #(
         if (!S_AXI_ARESETN) begin
             reg_status <= '0;
         end else begin
-            reg_status[0]     <= enc_busy;   // ENC_BUSY
-            reg_status[1]     <= done_enc;   // ENC_DONE
-            reg_status[2]     <= dec_busy;   // DEC_BUSY
-            reg_status[3]     <= done_dec;   // DEC_DONE
-            reg_status[31:4]  <= '0;
+            reg_status[0]    <= enc_busy;   // ENC_BUSY
+            reg_status[1]    <= done_enc;   // ENC_DONE
+            reg_status[2]    <= dec_busy;   // DEC_BUSY
+            reg_status[3]    <= done_dec;   // DEC_DONE
+            reg_status[31:4] <= '0;
         end
     end
 
-    // -----------------------------------------
-    // AXI-Lite: always-ready handshake
-    // -----------------------------------------
-    // Write side
+    // ------------------------------------------------------------
+    // AXI-Lite: always-ready write side
+    // ------------------------------------------------------------
     assign S_AXI_AWREADY = 1'b1;
     assign S_AXI_WREADY  = 1'b1;
 
@@ -189,9 +210,9 @@ module top_aes #(
         end
     end
 
-    // -----------------------------------------
-    // Register writes + AES control pulses
-    // -----------------------------------------
+    // ------------------------------------------------------------
+    // Register writes + AES control pulses (using offset)
+    // ------------------------------------------------------------
     integer i;
     always_ff @(posedge S_AXI_ACLK or negedge S_AXI_ARESETN) begin
         if (!S_AXI_ARESETN) begin
@@ -208,7 +229,7 @@ module top_aes #(
             start_enc       <= 1'b0;
             start_dec       <= 1'b0;
         end else begin
-            // default pulses low
+            // default pulses low each cycle
             set_key         <= 1'b0;
             set_plain_text  <= 1'b0;
             set_cipher_text <= 1'b0;
@@ -216,7 +237,7 @@ module top_aes #(
             start_dec       <= 1'b0;
 
             if (write_en) begin
-                unique case (S_AXI_AWADDR[7:0])
+                unique case (aw_offset)
 
                     // CTRL: bit0 = START_ENC, bit1 = START_DEC
                     CTRL_ADDR: begin
@@ -229,28 +250,28 @@ module top_aes #(
                     end
 
                     // KEY (128-bit)
-                    KEY0_ADDR: if (S_AXI_WSTRB != 4'b0000) key_reg[0] <= S_AXI_WDATA;
-                    KEY1_ADDR: if (S_AXI_WSTRB != 4'b0000) key_reg[1] <= S_AXI_WDATA;
-                    KEY2_ADDR: if (S_AXI_WSTRB != 4'b0000) key_reg[2] <= S_AXI_WDATA;
-                    KEY3_ADDR: if (S_AXI_WSTRB != 4'b0000) begin
+                    KEY0_ADDR: if (S_AXI_WSTRB != '0) key_reg[0] <= S_AXI_WDATA;
+                    KEY1_ADDR: if (S_AXI_WSTRB != '0) key_reg[1] <= S_AXI_WDATA;
+                    KEY2_ADDR: if (S_AXI_WSTRB != '0) key_reg[2] <= S_AXI_WDATA;
+                    KEY3_ADDR: if (S_AXI_WSTRB != '0) begin
                         key_reg[3] <= S_AXI_WDATA;
                         set_key    <= 1'b1;   // pulse when last word written
                     end
 
                     // PLAINTEXT_IN (encryption input)
-                    PT_IN0_ADDR: if (S_AXI_WSTRB != 4'b0000) pt_in_reg[0] <= S_AXI_WDATA;
-                    PT_IN1_ADDR: if (S_AXI_WSTRB != 4'b0000) pt_in_reg[1] <= S_AXI_WDATA;
-                    PT_IN2_ADDR: if (S_AXI_WSTRB != 4'b0000) pt_in_reg[2] <= S_AXI_WDATA;
-                    PT_IN3_ADDR: if (S_AXI_WSTRB != 4'b0000) begin
+                    PT_IN0_ADDR: if (S_AXI_WSTRB != '0) pt_in_reg[0] <= S_AXI_WDATA;
+                    PT_IN1_ADDR: if (S_AXI_WSTRB != '0) pt_in_reg[1] <= S_AXI_WDATA;
+                    PT_IN2_ADDR: if (S_AXI_WSTRB != '0) pt_in_reg[2] <= S_AXI_WDATA;
+                    PT_IN3_ADDR: if (S_AXI_WSTRB != '0) begin
                         pt_in_reg[3] <= S_AXI_WDATA;
                         set_plain_text <= 1'b1; // pulse on last word
                     end
 
                     // CIPHERTEXT_IN (decryption input)
-                    CT_IN0_ADDR: if (S_AXI_WSTRB != 4'b0000) ct_in_reg[0] <= S_AXI_WDATA;
-                    CT_IN1_ADDR: if (S_AXI_WSTRB != 4'b0000) ct_in_reg[1] <= S_AXI_WDATA;
-                    CT_IN2_ADDR: if (S_AXI_WSTRB != 4'b0000) ct_in_reg[2] <= S_AXI_WDATA;
-                    CT_IN3_ADDR: if (S_AXI_WSTRB != 4'b0000) begin
+                    CT_IN0_ADDR: if (S_AXI_WSTRB != '0) ct_in_reg[0] <= S_AXI_WDATA;
+                    CT_IN1_ADDR: if (S_AXI_WSTRB != '0) ct_in_reg[1] <= S_AXI_WDATA;
+                    CT_IN2_ADDR: if (S_AXI_WSTRB != '0) ct_in_reg[2] <= S_AXI_WDATA;
+                    CT_IN3_ADDR: if (S_AXI_WSTRB != '0) begin
                         ct_in_reg[3] <= S_AXI_WDATA;
                         set_cipher_text <= 1'b1; // pulse on last word
                     end
@@ -261,9 +282,9 @@ module top_aes #(
         end
     end
 
-    // -----------------------------------------
-    // AXI-Lite read channel (always-ready AR)
-    // -----------------------------------------
+    // ------------------------------------------------------------
+    // AXI-Lite read side (always-ready AR, using offset)
+    // ------------------------------------------------------------
     assign S_AXI_ARREADY = 1'b1;
 
     wire read_en = S_AXI_ARVALID;
@@ -278,7 +299,7 @@ module top_aes #(
                 S_AXI_RVALID <= 1'b1;
                 S_AXI_RRESP  <= 2'b00; // OKAY
 
-                unique case (S_AXI_ARADDR[7:0])
+                unique case (ar_offset)
                     CTRL_ADDR:    S_AXI_RDATA <= reg_ctrl;
                     STATUS_ADDR:  S_AXI_RDATA <= reg_status;
 
@@ -297,7 +318,7 @@ module top_aes #(
                     CT_IN2_ADDR:  S_AXI_RDATA <= ct_in_reg[2];
                     CT_IN3_ADDR:  S_AXI_RDATA <= ct_in_reg[3];
 
-                    // **Directly expose AES core outputs here**
+                    // Directly expose AES core outputs
                     CT_OUT0_ADDR: S_AXI_RDATA <= cipher_text_out[ 31:  0];
                     CT_OUT1_ADDR: S_AXI_RDATA <= cipher_text_out[ 63: 32];
                     CT_OUT2_ADDR: S_AXI_RDATA <= cipher_text_out[ 95: 64];

@@ -53,6 +53,37 @@ module system_top;
     wire        mem_axi_rready;
     wire [31:0] mem_axi_rdata;
 
+    // AXI Wires for SRAM Slave
+    wire mem_sram_awready, mem_sram_wready, mem_sram_bvalid, mem_sram_arready, mem_sram_rvalid;
+    wire [31:0] mem_sram_rdata;
+
+    // AXI Wires for AES Slave
+    wire mem_aes_awready, mem_aes_wready, mem_aes_bvalid, mem_aes_arready, mem_aes_rvalid;
+    wire [31:0] mem_aes_rdata;
+
+    localparam SRAM_BASE = 32'h0000_0000;
+    localparam SRAM_SIZE = 32'h0000_0200;
+    localparam AES_BASE  = 32'h0000_0400;
+		
+    wire sram_sel_aw = (mem_axi_awaddr >= SRAM_BASE) && (mem_axi_awaddr < (SRAM_BASE + SRAM_SIZE));
+    wire aes_sel_aw  = (mem_axi_awaddr >= AES_BASE) && (mem_axi_awaddr < (AES_BASE + 32'h100));
+    wire sram_sel_ar = (mem_axi_araddr >= SRAM_BASE) && (mem_axi_araddr < (SRAM_BASE + SRAM_SIZE));
+    wire aes_sel_ar  = (mem_axi_araddr >= AES_BASE) && (mem_axi_araddr < (AES_BASE + 32'h100));
+
+    assign mem_axi_awready = (sram_sel_aw ? mem_sram_awready : 1'b0) | (aes_sel_aw  ? mem_aes_awready  : 1'b0);
+    assign mem_axi_wready  = (sram_sel_aw ? mem_sram_wready  : 1'b0) | (aes_sel_aw  ? mem_aes_wready   : 1'b0);
+    assign mem_axi_arready = (sram_sel_ar ? mem_sram_arready : 1'b0) | (aes_sel_ar  ? mem_aes_arready  : 1'b0);             
+   	assign mem_axi_bvalid = (sram_sel_aw ? mem_sram_bvalid : 1'b0) | (aes_sel_aw  ? mem_aes_bvalid  : 1'b0);
+    assign mem_axi_rvalid = (sram_sel_ar ? mem_sram_rvalid : 1'b0) | (aes_sel_ar  ? mem_aes_rvalid  : 1'b0);
+    assign mem_axi_rdata = (mem_sram_rvalid) ? mem_sram_rdata : (mem_aes_rvalid) ? mem_aes_rdata : 32'h0000_0000;
+
+    wire sram_arvalid = mem_axi_arvalid & sram_sel_ar;
+    wire aes_arvalid  = mem_axi_arvalid & aes_sel_ar;
+    wire sram_awvalid = mem_axi_awvalid & sram_sel_aw;
+    wire aes_awvalid  = mem_axi_awvalid & aes_sel_aw;
+    wire sram_wvalid  = mem_axi_wvalid  & sram_sel_aw; 
+    wire aes_wvalid   = mem_axi_wvalid  & aes_sel_aw;
+
     // CPU Instance (Master)
     picorv32_axi #(
         .PROGADDR_RESET(32'h0000_0000), // Start executing at Address 0
@@ -99,32 +130,31 @@ module system_top;
 
         // Connect directly to CPU wires
         .axi_awaddr     (mem_axi_awaddr),
-        .axi_awvalid    (mem_axi_awvalid),
-        .axi_awready    (mem_axi_awready),
+        .axi_awvalid    (sram_awvalid),
+        .axi_awready    (mem_sram_awready),
 
         .axi_wdata      (mem_axi_wdata),
         .axi_wstrb      (mem_axi_wstrb),
-        .axi_wvalid     (mem_axi_wvalid),
-        .axi_wready     (mem_axi_wready),
+        .axi_wvalid     (sram_wvalid),
+        .axi_wready     (mem_sram_wready),
 
         .axi_bresp      (), // Open (PicoRV32 ignores Write Response value)
-        .axi_bvalid     (mem_axi_bvalid),
+        .axi_bvalid     (mem_sram_bvalid),
         .axi_bready     (mem_axi_bready),
 
         .axi_araddr     (mem_axi_araddr),
-        .axi_arvalid    (mem_axi_arvalid),
-        .axi_arready    (mem_axi_arready),
+        .axi_arvalid    (sram_arvalid),
+        .axi_arready    (mem_sram_arready),
 
-        .axi_rdata      (mem_axi_rdata),
+        .axi_rdata      (mem_sram_rdata),
         .axi_rresp      (), // Open (PicoRV32 ignores Read Response value)
-        .axi_rvalid     (mem_axi_rvalid),
+        .axi_rvalid     (mem_sram_rvalid),
         .axi_rready     (mem_axi_rready)
     );
 
 	// AES Wrapper Instance (Slave)
 	top_aes #(
-		.ADDR_WIDTH(32),
-		.DATA_WIDTH(32)
+		.BASE_ADDR(AES_BASE)
 	) u_aes (
 		.S_AXI_ACLK		(clk),
 		.S_AXI_ARESETN	(resetn),
@@ -132,31 +162,31 @@ module system_top;
 		// Connect directly to CPU wires
 		// Write address channel
         .S_AXI_AWADDR     (mem_axi_awaddr),
-        .S_AXI_AWVALID    (mem_axi_awvalid),
-        .S_AXI_AWREADY    (mem_axi_awready),
+        .S_AXI_AWVALID    (aes_awvalid),
+        .S_AXI_AWREADY    (mem_aes_awready),
 
 		// Write data channel
         .S_AXI_WDATA      (mem_axi_wdata),
         .S_AXI_WSTRB      (mem_axi_wstrb),
-        .S_AXI_WVALID     (mem_axi_wvalid),
-        .S_AXI_WREADY     (mem_axi_wready),
+        .S_AXI_WVALID     (aes_wvalid),
+        .S_AXI_WREADY     (mem_aes_wready),
 
 		// Write response channel
         .S_AXI_BRESP      (), // Open (PicoRV32 ignores Write Response value)
-        .S_AXI_BVALID     (mem_axi_bvalid),
+        .S_AXI_BVALID     (mem_aes_bvalid),
         .S_AXI_BREADY     (mem_axi_bready),
 
 		// Read address channel
         .S_AXI_ARADDR     (mem_axi_araddr),
-        .S_AXI_ARVALID    (mem_axi_arvalid),
-        .S_AXI_ARREADY    (mem_axi_arready),
+        .S_AXI_ARVALID    (aes_arvalid),
+        .S_AXI_ARREADY    (mem_aes_arready),
 		
 		// Read data channel
-        .S_AXI_RDATA      (mem_axi_rdata),
+        .S_AXI_RDATA      (mem_aes_rdata),
         .S_AXI_RRESP      (), // Open (PicoRV32 ignores Read Response value)
-        .S_AXI_RVALID     (mem_axi_rvalid),
+        .S_AXI_RVALID     (mem_aes_rvalid),
         .S_AXI_RREADY     (mem_axi_rready)
-	)
+	);
 
     // FIRMWARE LOADER (Hierarchical Backdoor Access)
     initial begin
@@ -167,7 +197,8 @@ module system_top;
 
         // A. Load Hex File into Buffer
         // Ensure "firmware.hex" is in your simulation folder!
-        $readmemh("firmware.hex", temp_mem);
+        //$readmemh("firmware.hex", temp_mem);
+        $readmemh("aestest.hex", temp_mem);
 
         // B. Scatter Loop: Move data from Buffer -> Internal 2D Array
         // Your memory is [127:0] Rows x [3:0] Columns
@@ -193,10 +224,11 @@ module system_top;
     // Basic Monitoring
     initial begin
         // Monitor key CPU events
-        $monitor("Time=%0t | PC_Addr=%h | Write=%b Data=%h | Read=%b Data=%h", 
-                 $time, mem_axi_araddr, 
+        $monitor("Time=%0t | Addr=%h | Write=%b Data=%h | Read=%b Data=%h | SRAM_Sel=%b AES_Sel=%b", 
+                 $time, mem_axi_awaddr, 
                  mem_axi_wvalid & mem_axi_wready, mem_axi_wdata,
-                 mem_axi_rvalid & mem_axi_rready, mem_axi_rdata);
+                 mem_axi_rvalid & mem_axi_rready, mem_axi_rdata,
+                 sram_sel_aw, aes_sel_aw);
     end
   initial begin
     $fsdbDumpfile("dump.fsdb");

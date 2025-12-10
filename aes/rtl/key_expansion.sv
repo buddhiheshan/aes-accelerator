@@ -77,11 +77,15 @@ timeunit 1ns/1ps;
     //Block B: Encryption Stepper (Triggered by ready_enc)
     // start_enc acts as an asynchronous reset for this counter
     always @(posedge ready_enc or posedge start_enc or posedge set_new_key) begin
-        if (set_new_key || start_enc) begin
+        if (set_new_key) begin
             key_storage[0] <= key_in;
             last_calc_key  <= key_in;
             schedule_valid <= 1'b0;
             enc_ptr <= 4'd0; // Reset pointer to start
+        end
+        else if (start_enc) begin
+            // REPLAY RESET 
+            enc_ptr <= 4'd0;
         end
         else begin
             // On rising edge of ready_enc...

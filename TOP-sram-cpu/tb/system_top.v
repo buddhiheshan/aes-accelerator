@@ -121,6 +121,43 @@ module system_top;
         .axi_rready     (mem_axi_rready)
     );
 
+	// AES Wrapper Instance (Slave)
+	top_aes #(
+		.ADDR_WIDTH(32),
+		.DATA_WIDTH(32)
+	) u_aes (
+		.S_AXI_ACLK		(clk),
+		.S_AXI_ARESETN	(resetn),
+		
+		// Connect directly to CPU wires
+		// Write address channel
+        .S_AXI_AWADDR     (mem_axi_awaddr),
+        .S_AXI_AWVALID    (mem_axi_awvalid),
+        .S_AXI_AWREADY    (mem_axi_awready),
+
+		// Write data channel
+        .S_AXI_WDATA      (mem_axi_wdata),
+        .S_AXI_WSTRB      (mem_axi_wstrb),
+        .S_AXI_WVALID     (mem_axi_wvalid),
+        .S_AXI_WREADY     (mem_axi_wready),
+
+		// Write response channel
+        .S_AXI_BRESP      (), // Open (PicoRV32 ignores Write Response value)
+        .S_AXI_BVALID     (mem_axi_bvalid),
+        .S_AXI_BREADY     (mem_axi_bready),
+
+		// Read address channel
+        .S_AXI_ARADDR     (mem_axi_araddr),
+        .S_AXI_ARVALID    (mem_axi_arvalid),
+        .S_AXI_ARREADY    (mem_axi_arready),
+		
+		// Read data channel
+        .S_AXI_RDATA      (mem_axi_rdata),
+        .S_AXI_RRESP      (), // Open (PicoRV32 ignores Read Response value)
+        .S_AXI_RVALID     (mem_axi_rvalid),
+        .S_AXI_RREADY     (mem_axi_rready)
+	)
+
     // FIRMWARE LOADER (Hierarchical Backdoor Access)
     initial begin
         // Variables for the loader

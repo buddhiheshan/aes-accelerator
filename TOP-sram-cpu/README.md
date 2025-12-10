@@ -1,3 +1,5 @@
+# Run in line: 
+# vcs -full64 -kdb -sverilog /ip/tsmc/tsmc16adfp/sram/VERILOG/N16ADFP_SRAM_100a.v rtl/sram_axi_wrapper.v rtl/picorv32.v tb/system_top.v -lca -debug_access+all
 # firmware opcodes
 000000000013   // 1. nop (addi x0, x0, 0)
 

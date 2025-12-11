@@ -180,10 +180,14 @@ module top_aes #(
             reg_status <= '0;
         end else begin
             reg_status[0]    <= enc_busy;   // ENC_BUSY
-            reg_status[1]    <= done_enc;   // ENC_DONE
             reg_status[2]    <= dec_busy;   // DEC_BUSY
-            reg_status[3]    <= done_dec;   // DEC_DONE
             reg_status[31:4] <= '0;
+            if (done_enc)begin
+                reg_status[1]    <= done_enc;   // ENC_DONE
+            end
+            if (done_dec)begin
+                reg_status[3]    <= done_dec;   // DEC_DONE
+            end
         end
     end
 

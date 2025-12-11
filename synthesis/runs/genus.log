@@ -695,3 +695,11 @@ Info    : Ignoring specified timing sense. [LBR-170]
 @file(genus.tcl) 34: read_libs $LIBRARY
 #@ End verbose source ./scripts/genus.tcl
 Cannot use read_libs after read_mmmc
+@genus:root: 7> exit
+
+Lic Summary:
+[15:15:52.164739] Cdslmd servers: pyke
+[15:15:52.689041] Feature usage summary:
+[15:15:52.689041] Genus_Synthesis
+
+Normal exit.

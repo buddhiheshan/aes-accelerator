@@ -1,7 +1,7 @@
 set PDK_DIR                  "/ip/tsmc/tsmc16adfp/stdcell"
 set PDK_DIR2		     "/ip/tsmc/tsmc16adfp/stdio"
 set PDK_DIR3					"/ip/tsmc/tsmc16adfp/sram"
-set ADDITIONAL_SEARCH_PATH   "$PDK_DIR/NLDM $PDK_DIR2/NLDM $PDK_DIR3/NLDM $PDK_DIR/NDM $PDK_DIR2/NDM ./TOP-sram-cpu/rtl ./TOP-sram-cpu/tb ./aes/rtl ./aes/rtl/pkgs "  ;#  Directories containing logic libraries, logic design and script files.
+set ADDITIONAL_SEARCH_PATH   "$PDK_DIR/NLDM $PDK_DIR2/NLDM $PDK_DIR3/NLDM $PDK_DIR/NDM $PDK_DIR2/NDM ./TOP-sram-cpu/rtl ./aes/rtl ./aes/rtl/pkgs "  ;#  Directories containing logic libraries, logic design and script files.
 
 set TARGET_LIBRARY_FILES     "N16ADFP_StdCelltt0p8v25c.db N16ADFP_StdIOtt0p8v1p8v25c.db N16ADFP_SRAM_tt0p8v0p8v25c_100a.db"                              ;#  Logic cell library files
 

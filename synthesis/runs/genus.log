@@ -1,0 +1,697 @@
+Cadence Genus(TM) Synthesis Solution.
+Copyright 2025 Cadence Design Systems, Inc. All rights reserved worldwide.
+Cadence and the Cadence logo are registered trademarks and Genus is a trademark
+of Cadence Design Systems, Inc. in the United States and other countries.
+
+[22:29:57.268763] Configured Lic search path (23.02-s006): 5281@pyke.poly.edu:/opt/cadence/License/cadence.lic:27020@pyke.poly.edu
+
+Version: 23.14-s090_1, built Thu Feb 27 07:49:50 PST 2025
+Options: 
+Date:    Wed Dec 10 22:29:57 2025
+Host:    ecs03.poly.edu (x86_64 w/Linux 4.18.0-553.71.1.el8_10.x86_64) (32cores*64cpus*2physical cpus*Intel(R) Xeon(R) Gold 6338N CPU @ 2.20GHz 49152KB) (1039234572KB)
+PID:     2070829
+OS:      Red Hat Enterprise Linux 8.10 (Ootpa)
+
+Checking out license: Genus_Synthesis
+[22:29:57.029656] Periodic Lic check successful
+[22:29:57.553953] Feature usage summary:
+[22:29:57.553954] Genus_Synthesis
+
+
+
+***********************************************************************************************************
+***********************************************************************************************************
+
+
+
+Finished executable startup (0 seconds elapsed).
+
+Loading tool scripts...
+Finished loading tool scripts (16 seconds elapsed).
+
+WARNING: This version of the tool is 286 days old.
+@genus:root: 1> cd ..
+@genus:root: 2> ls
+files
+logs
+runs
+@genus:root: 3> cd ..
+@genus:root: 4> ls
+README.md
+SRAM
+TOP-sram-cpu
+aes
+constraints
+cpu
+cshrc
+physical_design
+scripts
+synthesis
+@genus:root: 5> source scripts/genus.tcl
+Sourcing './scripts/genus.tcl' (Wed Dec 10 22:30:28 EST 2025)...
+#@ Begin verbose source ./scripts/genus.tcl
+@file(genus.tcl) 2: set SYNTH_DIR /AES-ACCELERATOR/synthesis
+@file(genus.tcl) 3: set RTL_PATH {/AES-ACCELERATOR/TOP-sram-cpu/rtl /AES-ACCELERATOR/TOP-sram-cpu/rtl/tb /ip/tsmc/tsmc16adfp/sram/VERILOG /AES-ACCELERATOR/aes/rtl /AES-ACCELERATOR/aes/rtl/pkgs}
+@file(genus.tcl) 4: set FILE_LIST  {system_top.v sram_axi_wrapper.v picorv32.v N16ADFP_SRAM_100a.v fsm4_pkg.sv top_aes.sv aes_core.sv add_roundkey.sv decryption.sv decryption_fsm.sv dff.sv encryption.sv encryption_fsm.sv key_expansion.sv mux_cols.sv pipeline_reg.sv s_box.sv s_box_inv.sv shift_rows.sv sub_bytes.sv sub_bytes_inv.sv}
+@file(genus.tcl) 5: set DESIGN       {system_top}
+@file(genus.tcl) 9: set LIB_PATH {/ip/tsmc/tsmc16adfp/stdcell/NLDM /ip/tsmc/tsmc16adfp/sram/NLDM /ip/tsmc/tsmc16adfp/stdio/NLDM /ip/tsmc/tsmc16adfp/pll/LIB}
+@file(genus.tcl) 10: set SYN_EFFORT   high
+@file(genus.tcl) 11: set MAP_EFFORT   high
+@file(genus.tcl) 12: set OPT_EFFORT high
+@file(genus.tcl) 13: set SDC_FILE /AES-ACCELERATOR/constraints/design_constraints.sdc
+@file(genus.tcl) 14: set THE_DATE  [exec date +%m%d.%H%M]
+@file(genus.tcl) 15: set LIBRARY {N16ADFP_StdCelltt0p8v25c.lib N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib N16ADFP_StdIOtt0p8v1p8v25c.lib n16adfp_plltt0p8v1p8v25c.lib}
+@file(genus.tcl) 23: set top_module $DESIGN
+@file(genus.tcl) 24: set DATE [clock format [clock seconds] -format "%b%d"] 
+@file(genus.tcl) 26: set _OUTPUTS_PATH $SYNTH_DIR/files/output_${DATE}
+@file(genus.tcl) 27: set _LOG_PATH $SYNTH_DIR/logs/log_${DATE}
+@file(genus.tcl) 28: set _REPORTS_PATH $SYNTH_DIR/logs/report_${DATE}
+@file(genus.tcl) 30: set_db information_level 7 
+  Setting attribute of root '/': 'information_level' = 7
+@file(genus.tcl) 31: set_db init_lib_search_path ${LIB_PATH} 
+  Setting attribute of root '/': 'init_lib_search_path' = /ip/tsmc/tsmc16adfp/stdcell/NLDM /ip/tsmc/tsmc16adfp/sram/NLDM /ip/tsmc/tsmc16adfp/stdio/NLDM /ip/tsmc/tsmc16adfp/pll/LIB
+@file(genus.tcl) 32: set_db init_hdl_search_path ${RTL_PATH} 
+  Setting attribute of root '/': 'init_hdl_search_path' = /AES-ACCELERATOR/TOP-sram-cpu/rtl /AES-ACCELERATOR/TOP-sram-cpu/rtl/tb /ip/tsmc/tsmc16adfp/sram/VERILOG /AES-ACCELERATOR/aes/rtl /AES-ACCELERATOR/aes/rtl/pkgs
+@file(genus.tcl) 33: set_db library $LIBRARY
+Info    : An unsupported construct was detected in this library. [LBR-40]
+        : Unknown Liberty attribute 'library_features' encountered. Ignoring (File /ip/tsmc/tsmc16adfp/stdcell/NLDM/N16ADFP_StdCelltt0p8v25c.lib, Line 72)
+        : Check to see if this construct is really needed for synthesis. Many liberty constructs are not actually required.
+Info    : An unsupported construct was detected in this library. [LBR-40]
+        : Unknown Liberty attribute 'library_features' encountered. Ignoring (File /ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib, Line 51)
+Info    : An unsupported construct was detected in this library. [LBR-40]
+        : Unknown Liberty attribute 'library_features' encountered. Ignoring (File /ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib, Line 52)
+Info    : An unsupported construct was detected in this library. [LBR-40]
+        : Unknown Liberty attribute 'define' encountered. Ignoring (File /ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib, Line 155)
+Info    : An unsupported construct was detected in this library. [LBR-40]
+        : Unknown Liberty attribute 'define' encountered. Ignoring (File /ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib, Line 156)
+Info    : An unsupported construct was detected in this library. [LBR-40]
+        : Unknown Liberty attribute 'map_only' encountered. Ignoring (File /ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib, Line 442)
+Info    : An unsupported construct was detected in this library. [LBR-40]
+        : Unknown Liberty attribute 'map_only' encountered. Ignoring (File /ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib, Line 1993)
+Info    : An unsupported construct was detected in this library. [LBR-40]
+        : Unknown Liberty attribute 'map_only' encountered. Ignoring (File /ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib, Line 3544)
+Info    : An unsupported construct was detected in this library. [LBR-40]
+        : Unknown Liberty attribute 'map_only' encountered. Ignoring (File /ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib, Line 5095)
+Warning : Unsupported attribute in the pin group. [LBR-510]
+        : The attribute 'bus_naming_style' defined on line 6645 is not supported for 'cell' group. It should be defined at 'library' level. (File /ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib)
+Info    : An unsupported construct was detected in this library. [LBR-40]
+        : Unknown Liberty attribute 'map_only' encountered. Ignoring (File /ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib, Line 6649)
+Warning : Unsupported attribute in the pin group. [LBR-510]
+        : The attribute 'bus_naming_style' defined on line 8806 is not supported for 'cell' group. It should be defined at 'library' level. (File /ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib)
+Info    : An unsupported construct was detected in this library. [LBR-40]
+        : Unknown Liberty attribute 'map_only' encountered. Ignoring (File /ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib, Line 8810)
+Warning : Unsupported attribute in the pin group. [LBR-510]
+        : The attribute 'bus_naming_style' defined on line 10967 is not supported for 'cell' group. It should be defined at 'library' level. (File /ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib)
+Info    : An unsupported construct was detected in this library. [LBR-40]
+        : Unknown Liberty attribute 'map_only' encountered. Ignoring (File /ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib, Line 10971)
+Warning : Unsupported attribute in the pin group. [LBR-510]
+        : The attribute 'bus_naming_style' defined on line 13128 is not supported for 'cell' group. It should be defined at 'library' level. (File /ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib)
+Info    : An unsupported construct was detected in this library. [LBR-40]
+        : Unknown Liberty attribute 'map_only' encountered. Ignoring (File /ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib, Line 13132)
+Warning : Unsupported attribute in the pin group. [LBR-510]
+        : The attribute 'bus_naming_style' defined on line 15289 is not supported for 'cell' group. It should be defined at 'library' level. (File /ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib)
+Info    : An unsupported construct was detected in this library. [LBR-40]
+        : Unknown Liberty attribute 'map_only' encountered. Ignoring (File /ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib, Line 15293)
+Warning : Unsupported attribute in the pin group. [LBR-510]
+        : The attribute 'bus_naming_style' defined on line 17450 is not supported for 'cell' group. It should be defined at 'library' level. (File /ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib)
+Info    : An unsupported construct was detected in this library. [LBR-40]
+        : Unknown Liberty attribute 'map_only' encountered. Ignoring (File /ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib, Line 17454)
+Info    : An unsupported construct was detected in this library. [LBR-40]
+        : Unknown Liberty attribute 'library_features' encountered. Ignoring (File /ip/tsmc/tsmc16adfp/stdio/NLDM/N16ADFP_StdIOtt0p8v1p8v25c.lib, Line 64)
+Info    : An unsupported construct was detected in this library. [LBR-40]
+        : Unknown Liberty attribute 'library_features' encountered. Ignoring (File /ip/tsmc/tsmc16adfp/stdio/NLDM/N16ADFP_StdIOtt0p8v1p8v25c.lib, Line 65)
+Info    : An unsupported construct was detected in this library. [LBR-40]
+        : Unknown Liberty attribute 'pad_drivers' encountered. Ignoring (File /ip/tsmc/tsmc16adfp/stdio/NLDM/N16ADFP_StdIOtt0p8v1p8v25c.lib, Line 624)
+Info    : An unsupported construct was detected in this library. [LBR-40]
+        : Unknown Liberty attribute 'bond_pads' encountered. Ignoring (File /ip/tsmc/tsmc16adfp/stdio/NLDM/N16ADFP_StdIOtt0p8v1p8v25c.lib, Line 625)
+Info    : An unsupported construct was detected in this library. [LBR-40]
+        : Unknown Liberty attribute 'pad_drivers' encountered. Ignoring (File /ip/tsmc/tsmc16adfp/stdio/NLDM/N16ADFP_StdIOtt0p8v1p8v25c.lib, Line 1047)
+Warning : Maximum message print count reached. [MESG-11]
+        : Maximum print count of '20' reached for message 'LBR-40'.
+Info    : Missing a function attribute in the output pin definition. [LBR-518]
+        : Functionality is missing at pin 'LD' for the cell 'N16ADFP_PLL'. (File /ip/tsmc/tsmc16adfp/pll/LIB/n16adfp_plltt0p8v1p8v25c.lib, Line 394)
+Info    : Missing a function attribute in the output pin definition. [LBR-518]
+        : Functionality is missing at pin 'FOUT' for the cell 'N16ADFP_PLL'. (File /ip/tsmc/tsmc16adfp/pll/LIB/n16adfp_plltt0p8v1p8v25c.lib, Line 419)
+
+  Message Summary for Library all 4 libraries:
+  ********************************************
+  Missing a function attribute in the output pin definition. [LBR-518]: 2
+  Unsupported attribute in the pin group. [LBR-510]: 6
+  An unsupported construct was detected in this library. [LBR-40]: 30
+  ********************************************
+ 
+            Reading file '/ip/tsmc/tsmc16adfp/stdcell/NLDM/N16ADFP_StdCelltt0p8v25c.lib'
+            Reading file '/ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib'
+            Reading file '/ip/tsmc/tsmc16adfp/stdio/NLDM/N16ADFP_StdIOtt0p8v1p8v25c.lib'
+Warning : Libraries have inconsistent nominal operating conditions. In the Liberty library, there are attributes called nom_voltage, nom_process and nom_temperature. Genus reports the message, if the respective values of the 2 given .libs differ. [LBR-38]
+        : The libraries are 'N16ADFP_StdCelltt0p8v25c' and 'N16ADFP_StdIOtt0p8v1p8v25c'.
+        : This is a common source of delay calculation confusion and should be avoided.
+            Reading file '/ip/tsmc/tsmc16adfp/pll/LIB/n16adfp_plltt0p8v1p8v25c.lib'
+Warning : Ignoring unsupported lu_table_template. [LBR-403]
+        : Ignoring lu_table_template index type (input_voltage).
+        : LBR-403 is issued when an unsupported lu_table_template is encountered by GENUS.
+Warning : Ignoring unsupported lu_table_template. [LBR-403]
+        : Ignoring lu_table_template index type (input_voltage).
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.800000, 25.000000) in library 'N16ADFP_StdCelltt0p8v25c.lib'.
+        : The nominal operating condition is represented, either by the nominal PVT values specified in the library source (via nom_process,nom_voltage and nom_temperature respectively), or by the default PVT values (1.0,1.0,1.0).
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.800000, 25.000000) in library 'N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib'.
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 1.800000, 25.000000) in library 'N16ADFP_StdIOtt0p8v1p8v25c.lib'.
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.800000, 25.000000) in library 'n16adfp_plltt0p8v1p8v25c.lib'.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'N16ADFP_PLL/LD' has no function.
+        : If the remainder of this library cell's semantic checks are successful, it will be considered as a timing-model (because one of its outputs does not have a valid function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'N16ADFP_PLL/FOUT' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[0]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[1]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[2]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[3]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[4]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[5]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[6]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[7]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[8]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[9]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[10]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[11]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[12]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[13]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[14]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[15]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[16]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[17]' has no function.
+Warning : Maximum message print count reached. [MESG-11]
+        : Maximum print count of '20' reached for message 'LBR-41'.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PCORNER' must have an output pin.
+        : Add the missing output pin(s), then reload the library. Else the library cell will be marked as timing model i.e. unusable. Timing_model means that the cell does not have any defined function. If there is no output pin, Genus will mark library cell as unusable i.e. the attribute 'usable' will be marked to 'false' on the libcell. Therefore, the cell is not used for mapping and it will not be picked up from the library for synthesis. If you query the attribute 'unusable_reason' on the libcell; result will be: 'Library cell has no output pins.'Note: The message LBR-9 is only for the logical pins and not for the power_ground pins. Genus will depend upon the output function defined in the pin group (output pin) of the cell, to use it for mapping. The pg_pin will not have any function defined.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PCORNER' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PFILLER00001' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PFILLER00001' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PFILLER00048' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PFILLER00048' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PFILLER01008' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PFILLER01008' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PFILLER10080' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PFILLER10080' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PRCUT_H' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PRCUT_H' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PRCUT_V' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PRCUT_V' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PVDD1CDGM_H' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PVDD1CDGM_H' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PVDD1CDGM_V' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PVDD1CDGM_V' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PVDD2CDGM_H' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PVDD2CDGM_H' must have an output pin.
+Warning : Maximum message print count reached. [MESG-11]
+        : Maximum print count of '20' reached for message 'LBR-9'.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP16P90/Q' is ignored.
+        : Timing sense should never be set with 'rising_edge' or 'falling_edge' timing type.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP16P90/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP16P90/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP16P90/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP16P90LVT/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP16P90LVT/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP16P90LVT/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP16P90LVT/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP20P90/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP20P90/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP20P90/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP20P90/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP20P90LVT/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP20P90LVT/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP20P90LVT/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP20P90LVT/Q' is ignored.
+  Setting attribute of root '/': 'library' = N16ADFP_StdCelltt0p8v25c.lib N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib N16ADFP_StdIOtt0p8v1p8v25c.lib n16adfp_plltt0p8v1p8v25c.lib
+@file(genus.tcl) 34: read_libs $LIBRARY
+Freeing libraries in memory (N16ADFP_StdCelltt0p8v25c.lib N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib N16ADFP_StdIOtt0p8v1p8v25c.lib n16adfp_plltt0p8v1p8v25c.lib)
+
+            Reading file '/ip/tsmc/tsmc16adfp/stdcell/NLDM/N16ADFP_StdCelltt0p8v25c.lib'
+            Reading file '/ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib'
+            Reading file '/ip/tsmc/tsmc16adfp/stdio/NLDM/N16ADFP_StdIOtt0p8v1p8v25c.lib'
+Warning : Libraries have inconsistent nominal operating conditions. In the Liberty library, there are attributes called nom_voltage, nom_process and nom_temperature. Genus reports the message, if the respective values of the 2 given .libs differ. [LBR-38]
+        : The libraries are 'N16ADFP_StdCelltt0p8v25c' and 'N16ADFP_StdIOtt0p8v1p8v25c'.
+            Reading file '/ip/tsmc/tsmc16adfp/pll/LIB/n16adfp_plltt0p8v1p8v25c.lib'
+Warning : Ignoring unsupported lu_table_template. [LBR-403]
+        : Ignoring lu_table_template index type (input_voltage).
+Warning : Ignoring unsupported lu_table_template. [LBR-403]
+        : Ignoring lu_table_template index type (input_voltage).
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.800000, 25.000000) in library 'N16ADFP_StdCelltt0p8v25c.lib'.
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.800000, 25.000000) in library 'N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib'.
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 1.800000, 25.000000) in library 'N16ADFP_StdIOtt0p8v1p8v25c.lib'.
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.800000, 25.000000) in library 'n16adfp_plltt0p8v1p8v25c.lib'.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'N16ADFP_PLL/LD' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'N16ADFP_PLL/FOUT' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[0]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[1]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[2]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[3]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[4]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[5]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[6]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[7]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[8]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[9]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[10]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[11]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[12]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[13]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[14]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[15]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[16]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[17]' has no function.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PCORNER' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PCORNER' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PFILLER00001' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PFILLER00001' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PFILLER00048' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PFILLER00048' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PFILLER01008' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PFILLER01008' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PFILLER10080' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PFILLER10080' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PRCUT_H' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PRCUT_H' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PRCUT_V' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PRCUT_V' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PVDD1CDGM_H' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PVDD1CDGM_H' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PVDD1CDGM_V' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PVDD1CDGM_V' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PVDD2CDGM_H' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PVDD2CDGM_H' must have an output pin.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP16P90/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP16P90/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP16P90/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP16P90/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP16P90LVT/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP16P90LVT/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP16P90LVT/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP16P90LVT/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP20P90/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP20P90/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP20P90/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP20P90/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP20P90LVT/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP20P90LVT/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP20P90LVT/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP20P90LVT/Q' is ignored.
+@file(genus.tcl) 36: read_hdl $FILE_LIST
+Warning : Cannot open file. [VLOGPT-650]
+        : File 'system_top.v'.
+        : The specified file could not be opened.  Check the value of the init_hdl_search_path attribute.
+Warning : Cannot open file. [VLOGPT-650]
+        : File 'sram_axi_wrapper.v'.
+Warning : Cannot open file. [VLOGPT-650]
+        : File 'picorv32.v'.
+            Reading Verilog file '/ip/tsmc/tsmc16adfp/sram/VERILOG/N16ADFP_SRAM_100a.v'
+`delay_mode_path
+               |
+Warning : Reference to predefined compiler directive. [VLOGPT-663]
+        : Ignoring directive 'delay_mode_path' in file '/ip/tsmc/tsmc16adfp/sram/VERILOG/N16ADFP_SRAM_100a.v' on line 64, column 16.
+nmos (Q[0], Q_i[0], 1'b1);
+   |
+Error   : Feature not supported for synthesis. [VLOGPT-30] [read_hdl]
+        : Gate of type 'nmos' in file '/ip/tsmc/tsmc16adfp/sram/VERILOG/N16ADFP_SRAM_100a.v' on line 319, column 4.
+        : The following features are not supported for synthesis:
+    - primitive
+    - configuration
+    - all 'mos' gates
+    - all 'rtran' gates
+    - all 'tranif' gates
+    - pullup/pulldown gates.
+For more information on supported and unsupported features, refer to 'Verilog Constructs and Level of Support' table in 'HDL Modeling Guide'.
+nmos (Q[1], Q_i[1], 1'b1);
+   |
+Error   : Feature not supported for synthesis. [VLOGPT-30] [read_hdl]
+        : Gate of type 'nmos' in file '/ip/tsmc/tsmc16adfp/sram/VERILOG/N16ADFP_SRAM_100a.v' on line 320, column 4.
+nmos (Q[2], Q_i[2], 1'b1);
+   |
+Error   : Feature not supported for synthesis. [VLOGPT-30] [read_hdl]
+        : Gate of type 'nmos' in file '/ip/tsmc/tsmc16adfp/sram/VERILOG/N16ADFP_SRAM_100a.v' on line 321, column 4.
+nmos (Q[3], Q_i[3], 1'b1);
+   |
+Error   : Feature not supported for synthesis. [VLOGPT-30] [read_hdl]
+        : Gate of type 'nmos' in file '/ip/tsmc/tsmc16adfp/sram/VERILOG/N16ADFP_SRAM_100a.v' on line 322, column 4.
+nmos (Q[4], Q_i[4], 1'b1);
+   |
+Error   : Feature not supported for synthesis. [VLOGPT-30] [read_hdl]
+        : Gate of type 'nmos' in file '/ip/tsmc/tsmc16adfp/sram/VERILOG/N16ADFP_SRAM_100a.v' on line 323, column 4.
+nmos (Q[5], Q_i[5], 1'b1);
+   |
+Error   : Feature not supported for synthesis. [VLOGPT-30] [read_hdl]
+        : Gate of type 'nmos' in file '/ip/tsmc/tsmc16adfp/sram/VERILOG/N16ADFP_SRAM_100a.v' on line 324, column 4.
+nmos (Q[6], Q_i[6], 1'b1);
+   |
+Error   : Feature not supported for synthesis. [VLOGPT-30] [read_hdl]
+        : Gate of type 'nmos' in file '/ip/tsmc/tsmc16adfp/sram/VERILOG/N16ADFP_SRAM_100a.v' on line 325, column 4.
+nmos (Q[7], Q_i[7], 1'b1);
+   |
+Error   : Feature not supported for synthesis. [VLOGPT-30] [read_hdl]
+        : Gate of type 'nmos' in file '/ip/tsmc/tsmc16adfp/sram/VERILOG/N16ADFP_SRAM_100a.v' on line 326, column 4.
+nmos (Q[8], Q_i[8], 1'b1);
+   |
+Error   : Feature not supported for synthesis. [VLOGPT-30] [read_hdl]
+        : Gate of type 'nmos' in file '/ip/tsmc/tsmc16adfp/sram/VERILOG/N16ADFP_SRAM_100a.v' on line 327, column 4.
+nmos (Q[9], Q_i[9], 1'b1);
+   |
+Error   : Feature not supported for synthesis. [VLOGPT-30] [read_hdl]
+        : Gate of type 'nmos' in file '/ip/tsmc/tsmc16adfp/sram/VERILOG/N16ADFP_SRAM_100a.v' on line 328, column 4.
+nmos (Q[10], Q_i[10], 1'b1);
+   |
+Error   : Feature not supported for synthesis. [VLOGPT-30] [read_hdl]
+        : Gate of type 'nmos' in file '/ip/tsmc/tsmc16adfp/sram/VERILOG/N16ADFP_SRAM_100a.v' on line 329, column 4.
+nmos (Q[11], Q_i[11], 1'b1);
+   |
+Error   : Feature not supported for synthesis. [VLOGPT-30] [read_hdl]
+        : Gate of type 'nmos' in file '/ip/tsmc/tsmc16adfp/sram/VERILOG/N16ADFP_SRAM_100a.v' on line 330, column 4.
+nmos (Q[12], Q_i[12], 1'b1);
+   |
+Error   : Feature not supported for synthesis. [VLOGPT-30] [read_hdl]
+        : Gate of type 'nmos' in file '/ip/tsmc/tsmc16adfp/sram/VERILOG/N16ADFP_SRAM_100a.v' on line 331, column 4.
+nmos (Q[13], Q_i[13], 1'b1);
+   |
+Error   : Feature not supported for synthesis. [VLOGPT-30] [read_hdl]
+        : Gate of type 'nmos' in file '/ip/tsmc/tsmc16adfp/sram/VERILOG/N16ADFP_SRAM_100a.v' on line 332, column 4.
+nmos (Q[14], Q_i[14], 1'b1);
+   |
+Error   : Feature not supported for synthesis. [VLOGPT-30] [read_hdl]
+        : Gate of type 'nmos' in file '/ip/tsmc/tsmc16adfp/sram/VERILOG/N16ADFP_SRAM_100a.v' on line 333, column 4.
+nmos (Q[15], Q_i[15], 1'b1);
+   |
+Error   : Feature not supported for synthesis. [VLOGPT-30] [read_hdl]
+        : Gate of type 'nmos' in file '/ip/tsmc/tsmc16adfp/sram/VERILOG/N16ADFP_SRAM_100a.v' on line 334, column 4.
+nmos (Q[16], Q_i[16], 1'b1);
+   |
+Error   : Feature not supported for synthesis. [VLOGPT-30] [read_hdl]
+        : Gate of type 'nmos' in file '/ip/tsmc/tsmc16adfp/sram/VERILOG/N16ADFP_SRAM_100a.v' on line 335, column 4.
+nmos (Q[17], Q_i[17], 1'b1);
+   |
+Error   : Feature not supported for synthesis. [VLOGPT-30] [read_hdl]
+        : Gate of type 'nmos' in file '/ip/tsmc/tsmc16adfp/sram/VERILOG/N16ADFP_SRAM_100a.v' on line 336, column 4.
+nmos (Q[18], Q_i[18], 1'b1);
+   |
+Error   : Feature not supported for synthesis. [VLOGPT-30] [read_hdl]
+        : Gate of type 'nmos' in file '/ip/tsmc/tsmc16adfp/sram/VERILOG/N16ADFP_SRAM_100a.v' on line 337, column 4.
+nmos (Q[19], Q_i[19], 1'b1);
+   |
+Error   : Feature not supported for synthesis. [VLOGPT-30] [read_hdl]
+        : Gate of type 'nmos' in file '/ip/tsmc/tsmc16adfp/sram/VERILOG/N16ADFP_SRAM_100a.v' on line 338, column 4.
+nmos (Q[19], Q_i[19], 1'b1);
+      |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found '(' in file '/ip/tsmc/tsmc16adfp/sram/VERILOG/N16ADFP_SRAM_100a.v' on line 338, column 7.
+        : Invalid Verilog syntax is parsed, or unsupported Verilog syntax is encountered.
+        Cannot open directory '/AES-ACCELERATOR/TOP-sram-cpu/rtl' from 'init_hdl_search_path'.
+        Cannot open directory '/AES-ACCELERATOR/TOP-sram-cpu/rtl/tb' from 'init_hdl_search_path'.
+        Cannot open directory '/AES-ACCELERATOR/aes/rtl' from 'init_hdl_search_path'.
+        Cannot open directory '/AES-ACCELERATOR/aes/rtl/pkgs' from 'init_hdl_search_path'.
+#@ End verbose source ./scripts/genus.tcl
+1
+
+Another Ctrl-C within 1 second will terminate the tool.
+CURRENT RESOURCES: RT {elapsed: 233s, ST: 28s, FG: 28s, CPU: 1.4%}, MEM {curr: 1.6G, peak: 1.9G, phys curr: 0.7G, phys peak: 0.8G}, SYS {load: 4.0, cpu: 64, total: 991.1G, free: 763.9G}
+@genus:root: 6> 
+@genus:root: 6> source scripts/genus.tcl
+Sourcing './scripts/genus.tcl' (Wed Dec 10 22:40:32 EST 2025)...
+#@ Begin verbose source ./scripts/genus.tcl
+@file(genus.tcl) 2: set SYNTH_DIR synthesis
+@file(genus.tcl) 3: set RTL_PATH {TOP-sram-cpu/rtl TOP-sram-cpu/rtl/tb /ip/tsmc/tsmc16adfp/sram/VERILOG aes/rtl aes/rtl/pkgs}
+@file(genus.tcl) 4: set FILE_LIST  {system_top.v sram_axi_wrapper.v picorv32.v N16ADFP_SRAM_100a.v fsm4_pkg.sv top_aes.sv aes_core.sv add_roundkey.sv decryption.sv decryption_fsm.sv dff.sv encryption.sv encryption_fsm.sv key_expansion.sv mux_cols.sv pipeline_reg.sv s_box.sv s_box_inv.sv shift_rows.sv sub_bytes.sv sub_bytes_inv.sv}
+@file(genus.tcl) 5: set DESIGN       {system_top}
+@file(genus.tcl) 9: set LIB_PATH {/ip/tsmc/tsmc16adfp/stdcell/NLDM /ip/tsmc/tsmc16adfp/sram/NLDM /ip/tsmc/tsmc16adfp/stdio/NLDM /ip/tsmc/tsmc16adfp/pll/LIB}
+@file(genus.tcl) 10: set SYN_EFFORT   high
+@file(genus.tcl) 11: set MAP_EFFORT   high
+@file(genus.tcl) 12: set OPT_EFFORT high
+@file(genus.tcl) 13: set SDC_FILE constraints/design_constraints.sdc
+@file(genus.tcl) 14: set THE_DATE  [exec date +%m%d.%H%M]
+@file(genus.tcl) 15: set LIBRARY {N16ADFP_StdCelltt0p8v25c.lib N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib N16ADFP_StdIOtt0p8v1p8v25c.lib n16adfp_plltt0p8v1p8v25c.lib}
+@file(genus.tcl) 23: set top_module $DESIGN
+@file(genus.tcl) 24: set DATE [clock format [clock seconds] -format "%b%d"] 
+@file(genus.tcl) 26: set _OUTPUTS_PATH $SYNTH_DIR/files/output_${DATE}
+@file(genus.tcl) 27: set _LOG_PATH $SYNTH_DIR/logs/log_${DATE}
+@file(genus.tcl) 28: set _REPORTS_PATH $SYNTH_DIR/logs/report_${DATE}
+@file(genus.tcl) 30: set_db information_level 7 
+  Setting attribute of root '/': 'information_level' = 7
+@file(genus.tcl) 31: set_db init_lib_search_path ${LIB_PATH} 
+Warning : Cannot modify library search path after reading library(s). [TUI-83]
+        : Cannot modify 'init_lib_search_path' attribute to '/ip/tsmc/tsmc16adfp/stdcell/NLDM /ip/tsmc/tsmc16adfp/sram/NLDM /ip/tsmc/tsmc16adfp/stdio/NLDM /ip/tsmc/tsmc16adfp/pll/LIB'
+        : You must set the 'init_lib_search_path' attribute before you set the 'library' attribute.
+  Setting attribute of root '/': 'init_lib_search_path' = /ip/tsmc/tsmc16adfp/stdcell/NLDM /ip/tsmc/tsmc16adfp/sram/NLDM /ip/tsmc/tsmc16adfp/stdio/NLDM /ip/tsmc/tsmc16adfp/pll/LIB
+@file(genus.tcl) 32: set_db init_hdl_search_path ${RTL_PATH} 
+  Setting attribute of root '/': 'init_hdl_search_path' = TOP-sram-cpu/rtl TOP-sram-cpu/rtl/tb /ip/tsmc/tsmc16adfp/sram/VERILOG aes/rtl aes/rtl/pkgs
+@file(genus.tcl) 33: set_db library $LIBRARY
+Freeing libraries in memory (  { N16ADFP_StdCelltt0p8v25c.lib }  { N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib }  { N16ADFP_StdIOtt0p8v1p8v25c.lib }  { n16adfp_plltt0p8v1p8v25c.lib } )
+
+            Reading file '/ip/tsmc/tsmc16adfp/stdcell/NLDM/N16ADFP_StdCelltt0p8v25c.lib'
+            Reading file '/ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib'
+            Reading file '/ip/tsmc/tsmc16adfp/stdio/NLDM/N16ADFP_StdIOtt0p8v1p8v25c.lib'
+Warning : Libraries have inconsistent nominal operating conditions. In the Liberty library, there are attributes called nom_voltage, nom_process and nom_temperature. Genus reports the message, if the respective values of the 2 given .libs differ. [LBR-38]
+        : The libraries are 'N16ADFP_StdCelltt0p8v25c' and 'N16ADFP_StdIOtt0p8v1p8v25c'.
+            Reading file '/ip/tsmc/tsmc16adfp/pll/LIB/n16adfp_plltt0p8v1p8v25c.lib'
+Warning : Ignoring unsupported lu_table_template. [LBR-403]
+        : Ignoring lu_table_template index type (input_voltage).
+Warning : Ignoring unsupported lu_table_template. [LBR-403]
+        : Ignoring lu_table_template index type (input_voltage).
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.800000, 25.000000) in library 'N16ADFP_StdCelltt0p8v25c.lib'.
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.800000, 25.000000) in library 'N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib'.
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 1.800000, 25.000000) in library 'N16ADFP_StdIOtt0p8v1p8v25c.lib'.
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.800000, 25.000000) in library 'n16adfp_plltt0p8v1p8v25c.lib'.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'N16ADFP_PLL/LD' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'N16ADFP_PLL/FOUT' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[0]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[1]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[2]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[3]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[4]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[5]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[6]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[7]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[8]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[9]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[10]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[11]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[12]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[13]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[14]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[15]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[16]' has no function.
+Info    : An output library pin lacks a function attribute. [LBR-41]
+        : Output pin 'TS1N16ADFPCLLLVTA128X64M4SWSHOD/Q[17]' has no function.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PCORNER' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PCORNER' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PFILLER00001' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PFILLER00001' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PFILLER00048' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PFILLER00048' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PFILLER01008' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PFILLER01008' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PFILLER10080' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PFILLER10080' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PRCUT_H' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PRCUT_H' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PRCUT_V' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PRCUT_V' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PVDD1CDGM_H' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PVDD1CDGM_H' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PVDD1CDGM_V' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PVDD1CDGM_V' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PVDD2CDGM_H' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'PVDD2CDGM_H' must have an output pin.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP16P90/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP16P90/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP16P90/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP16P90/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP16P90LVT/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP16P90LVT/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP16P90LVT/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP16P90LVT/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP20P90/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP20P90/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP20P90/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP20P90/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP20P90LVT/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP20P90LVT/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP20P90LVT/Q' is ignored.
+Info    : Ignoring specified timing sense. [LBR-170]
+        : The 'timing_sense' definition 'negative_unate' for library pin 'SDFKCNQD2BWP20P90LVT/Q' is ignored.
+  Setting attribute of root '/': 'library' = N16ADFP_StdCelltt0p8v25c.lib N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib N16ADFP_StdIOtt0p8v1p8v25c.lib n16adfp_plltt0p8v1p8v25c.lib
+@file(genus.tcl) 34: read_libs $LIBRARY
+#@ End verbose source ./scripts/genus.tcl
+Cannot use read_libs after read_mmmc

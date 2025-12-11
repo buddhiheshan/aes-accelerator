@@ -45,6 +45,7 @@ always_comb begin
                 if (start) begin
                     next_state = INITIAL_ROUND;
                     round_cycle_count_next = 0;
+                    round_count_next = 10;
                 end
                 else next_state = IDLE;
             end

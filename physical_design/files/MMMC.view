@@ -1,0 +1,21 @@
+create_rc_corner -name best_case -qrc_tech {/ip/tsmc/tsmc16adfp/tech/RC/N16ADFP_QRC/best/qrcTechFile} -pre_route_res {1.0} -pre_route_cap {1.0} -post_route_res {1.0} -post_route_cap {1.0} 
+create_rc_corner -name worst_case -qrc_tech {/ip/tsmc/tsmc16adfp/tech/RC/N16ADFP_QRC/worst/qrcTechFile} -pre_route_res {1.0} -pre_route_cap {1.0} -post_route_res {1.0} -post_route_cap {1.0}
+create_library_set -name fast_case -timing {/ip/tsmc/tsmc16adfp/stdcell/CCS/N16ADFP_StdCellff0p88vm40c_ccs.lib /ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_ff0p88v0p88vm40c_100a.lib /ip/tsmc/tsmc16adfp/stdio/NLDM/N16ADFP_StdIOff0p88v1p98vm40c.lib /ip/tsmc/tsmc16adfp/pll/LIB/n16adfp_pllff0p88v1p98vm40c.lib}
+create_library_set -name slow_case -timing {/ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_ss0p72v0p72v125c_100a.lib /ip/tsmc/tsmc16adfp/stdcell/CCS/N16ADFP_StdCellss0p72v125c_ccs.lib /ip/tsmc/tsmc16adfp/stdio/NLDM/N16ADFP_StdIOss0p72v1p62v125c.lib /ip/tsmc/tsmc16adfp/pll/LIB/n16adfp_pllss0p72v1p62v125c.lib}
+create_library_set -name typical_case -timing {/ip/tsmc/tsmc16adfp/sram/NLDM/N16ADFP_SRAM_tt0p8v0p8v25c_100a.lib /ip/tsmc/tsmc16adfp/stdcell/NLDM/N16ADFP_StdCelltt0p8v25c.lib /ip/tsmc/tsmc16adfp/stdio/NLDM/N16ADFP_StdIOtt0p8v1p8v25c.lib /ip/tsmc/tsmc16adfp/pll/LIB/n16adfp_plltt0p8v1p8v25c.lib}
+create_constraint_mode -name const_mode -sdc_files {/AES-ACCELERATOR/synthesis/files/post_syn.sdc}
+
+create_timing_condition -name TC_LATE -library_sets [list slow_case]
+create_timing_condition -name TC_EARLY -library_sets [list fast_case]
+
+create_delay_corner -name DUAL_CORNER \
+    -late_timing_condition {TC_LATE}    \
+    -early_timing_condition {TC_EARLY}   \
+    -rc_corner worst_case
+
+
+create_analysis_view -name AV_SETUP_HOLD \
+    -constraint_mode const_mode \
+    -delay_corner DUAL_CORNER
+
+set_analysis_view -setup [list AV_SETUP_HOLD] -hold [list AV_SETUP_HOLD]

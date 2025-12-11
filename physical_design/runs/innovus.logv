@@ -1,0 +1,51 @@
+[12/11 15:57:29      0s] 
+[12/11 15:57:29      0s] Cadence Innovus(TM) Implementation System.
+[12/11 15:57:29      0s] Copyright 2024 Cadence Design Systems, Inc. All rights reserved worldwide.
+[12/11 15:57:29      0s] 
+[12/11 15:57:29      0s] Version:	v23.14-s088_1, built Fri Feb 28 12:25:44 PST 2025
+[12/11 15:57:29      0s] Options:	-stylus 
+[12/11 15:57:29      0s] Date:		Thu Dec 11 15:57:29 2025
+[12/11 15:57:29      0s] Host:		ecs03.poly.edu (x86_64 w/Linux 4.18.0-553.71.1.el8_10.x86_64) (32cores*64cpus*Intel(R) Xeon(R) Gold 6338N CPU @ 2.20GHz 49152KB)
+[12/11 15:57:29      0s] OS:		Red Hat Enterprise Linux 8.10 (Ootpa)
+[12/11 15:57:29      0s] 
+[12/11 15:57:29      0s] License:
+[12/11 15:57:29      0s] 		[15:57:29.268779] Configured Lic search path (23.02-s006): 5281@pyke.poly.edu:/opt/cadence/License/cadence.lic:27020@pyke.poly.edu
+[12/11 15:57:29      0s] 
+[12/11 15:57:29      0s] 		invs	Innovus Implementation System	23.1	checkout succeeded
+[12/11 15:57:29      0s] 		8 CPU jobs allowed with the current license(s). Use set_multi_cpu_usage to set your required CPU count.
+[12/11 15:57:29      0s] **ERROR: (IMPOAX-124):	OpenAccess (OA) shared library installation is older than the one that was used to build this Innovus version. For using the OA installation built and tested with this Innovus version, unset the shell variable OA_HOME. For using 'p020' or higher version of OA, reset OA_HOME to point to that installation.
+[12/11 15:57:29      0s] Type 'man IMPOAX-124' for more detail.
+[12/11 15:57:29      0s] **ERROR: (IMPOAX-332):	Failed to initialize OpenAccess (OA) database. OA related commands cannot be run in this session. Confirm that the OA shared library is installed and OA_HOME is set correctly. Typically the OA_HOME environment variable should not be set.
+[12/11 15:57:29      0s] Type 'man IMPOAX-332' for more detail.
+[12/11 15:57:29      0s] INFO: OA features are disabled in this session.
+[12/11 15:57:41     12s] Memory management switch to non-aggressive memory release mode.
+[12/11 15:57:41     12s] 
+[12/11 15:57:41     12s] OS Mmap count monitoring thread starts. Limit of OS Mmap count is 65530
+[12/11 15:57:41     12s] 
+[12/11 15:57:41     12s] 
+[12/11 15:57:41     12s] 
+[12/11 15:57:43     14s] Reset Parastics called with the command setExtractRCMode -reset@(#)CDS: Innovus v23.14-s088_1 (64bit) 02/28/2025 12:25 (Linux 3.10.0-693.el7.x86_64)
+[12/11 15:57:45     16s] @(#)CDS: NanoRoute 23.14-s088_1 NR250219-0822/23_14-UB (database version 18.20.661) {superthreading v2.20}
+[12/11 15:57:45     16s] @(#)CDS: AAE 23.14-s018 (64bit) 02/28/2025 (Linux 3.10.0-693.el7.x86_64)
+[12/11 15:57:45     16s] @(#)CDS: CTE 23.14-s036_1 () Feb 22 2025 01:17:26 ( )
+[12/11 15:57:45     16s] @(#)CDS: SYNTECH 23.14-s010_1 () Feb 19 2025 23:56:49 ( )
+[12/11 15:57:45     16s] @(#)CDS: CPE v23.14-s082
+[12/11 15:57:45     16s] @(#)CDS: IQuantus/TQuantus 23.1.1-s336 (64bit) Mon Jan 20 22:11:00 PST 2025 (Linux 3.10.0-693.el7.x86_64)
+[12/11 15:57:45     16s] @(#)CDS: OA 22.61-p020 Fri Nov  1 12:14:48 2024
+[12/11 15:57:45     16s] @(#)CDS: SGN 23.10-d005 (03-Oct-2023) (64 bit executable, TkQt5.15.9)
+[12/11 15:57:45     16s] @(#)CDS: RCDB 11.15.0
+[12/11 15:57:45     16s] @(#)CDS: STYLUS 23.16-e002_1 (01/09/2025 16:47 PST)
+[12/11 15:57:45     16s] @(#)CDS: IntegrityPlanner-23.14-17034 (23.14) (2025-02-20 15:50:05+0800)
+[12/11 15:57:45     16s] @(#)CDS: SYNTHESIS_ENGINE 23.14-s090
+[12/11 15:57:45     16s] Create and set the environment variable TMPDIR to /home/jy5187/Documents/soc/aes-accelerator/physical_design/runs/innovus_temp_1130137_6ed8cb3c-8437-4419-8b3c-db8654b5260e_ecs03.poly.edu_jy5187_Rmvcuz.
+
+[12/11 15:57:45     16s] Create and set the environment variable TMPDIR to /home/jy5187/Documents/soc/aes-accelerator/physical_design/runs/innovus_temp_1130137_6ed8cb3c-8437-4419-8b3c-db8654b5260e_ecs03.poly.edu_jy5187_Rmvcuz.
+[12/11 15:57:45     16s] 
+[12/11 15:57:45     16s] Change the soft stacksize limit to 0.2%RAM (2029 mbytes). Set global soft_stack_size_limit to change the value.
+[12/11 15:57:46     17s] [INFO] Loading PVS 23.11 fill procedures
+[12/11 15:57:47     18s] Info: Process UID = 1130137 / 6ed8cb3c-8437-4419-8b3c-db8654b5260e / JNO5MWZBsD
+[12/11 15:57:47     18s] 
+[12/11 15:57:47     18s] **INFO:  MMMC transition support version v31-84 
+[12/11 15:57:47     18s] 
+[12/11 15:57:50     21s] @innovus 1> gui_select -point {0.08000 0.08300}
+[12/11 16:18:37     39s] @innovus 2> 

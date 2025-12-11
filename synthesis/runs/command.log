@@ -1,6 +1,6 @@
 #@ # 
 #@ # Running dc_shell Version W-2024.09-SP5-5 for linux64 -- Oct 23, 2025
-#@ # Date:   Thu Dec 11 15:41:20 2025
+#@ # Date:   Thu Dec 11 16:04:23 2025
 #@ # Run by: jy5187@ecs03.poly.edu
 #@ 
 
@@ -13626,34 +13626,7 @@ gui_show
 #@ # -- End source /eda/synopsys/syn/W-2024.09-SP5-5/auxx/tcllib/lib/iwidgets4.1/iwidgets.tcl
 
 gui_set_pref_value -category {SelectByNamePalette} -key {ObjectType} -value {LeafCells}
-set PDK_DIR                  "/ip/tsmc/tsmc16adfp/stdcell"
-set PDK_DIR2		     "/ip/tsmc/tsmc16adfp/stdio"
-set PDK_DIR3					"/ip/tsmc/tsmc16adfp/sram"
-set ADDITIONAL_SEARCH_PATH   "$PDK_DIR/NLDM $PDK_DIR2/NLDM $PDK_DIR3/NLDM $PDK_DIR/NDM $PDK_DIR2/NDM ./TOP-sram-cpu/rtl ./aes/rtl ./aes/rtl/pkgs "  ;#  Directories containing logic libraries, logic design and script files.
-set TARGET_LIBRARY_FILES     "N16ADFP_StdCelltt0p8v25c.db N16ADFP_StdIOtt0p8v1p8v25c.db N16ADFP_SRAM_tt0p8v0p8v25c_100a.db"                              ;#  Logic cell library files
-set NDM_DESIGN_LIB           "TOP.dlib"                 ;#  User-defined NDM design library name
-set NDM_REFERENCE_LIBS       "N16ADFP_StdCell_physicalonly.ndm reflib.ndm N16ADFP_StdIO_physicalonly.ndm"                 ;#  NDM physical cell libraries
-######################################################################
-# Logical Library Settings
-######################################################################
-set_app_var search_path    "$search_path $ADDITIONAL_SEARCH_PATH"
-set_app_var target_library  $TARGET_LIBRARY_FILES
-set_app_var link_library   "* $target_library"
-######################################################################
-# Physical Library Settings
-######################################################################
-define_design_lib WORK -path ./work         ;# Location of "analyze"d files
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-#  Verify Settings
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-echo "\n=================================================================="
-echo "\nLibrary Settings:"
-echo "search_path:              $search_path"
-echo "link_library:             $link_library"
-echo "target_library:           $target_library"
-echo "physical libraries:       $NDM_REFERENCE_LIBS"
-echo "physical design library:  $NDM_DESIGN_LIB"
-echo "\n=================================================================="
+ls
 cd ../..
 ls
 set PDK_DIR                  "/ip/tsmc/tsmc16adfp/stdcell"
@@ -13691,4 +13664,3 @@ compile_ultra
 report_timing
 write -format verilog -hierarchy -output synthesis/files/system_top.v
 write_sdc synthesis/files/post_syn.sdc
-exit

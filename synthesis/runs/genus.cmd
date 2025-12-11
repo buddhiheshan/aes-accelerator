@@ -10,3 +10,4 @@ cd ..
 ls
 source scripts/genus.tcl
 source scripts/genus.tcl
+exit

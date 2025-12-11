@@ -4,3 +4,10 @@ simv*
 csrc/
 verdi*
 *.key
+.nfs*
+/cpu/*
+.inter.fsdb.tbsim
+.vcs_checkpoint*
+dump.fsdb
+inter*
+novas*

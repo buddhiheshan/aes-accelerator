@@ -90,10 +90,10 @@ addi    x2, x0, 2           # 00200113
 sw      x2, 0(x3)           # 0021a023
 
 lb      x9, 4(x3)           # 00418483
-andi    x9, x9, 16          # 0104f493
+andi    x9, x9, 8           # 0084f493
 beq     x9, x0, -8          # fe048ce3 (branch backward two instructions)
 
 lw      x10, 80(x3)         # 0501a503
 lw      x11, 84(x3)         # 0541a583
 lw      x12, 88(x3)         # 0581a603
-lw      x13, 102(x3)        # 0661a683
+lw      x13, 92(x3)         # 05c1a683

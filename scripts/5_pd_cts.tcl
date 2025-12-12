@@ -7,7 +7,9 @@ set REPORT_DIR "physical_design/logs/report_${DATE}"
 create_clock_tree_spec
 ccopt_design 
 
-time_design -post_cts -report_dir $REPORT_DIR
 opt_design -post_cts -report_dir $REPORT_DIR
 opt_design -post_cts -hold -report_dir $REPORT_DIR
 opt_design -post_cts -hold -setup -report_dir $REPORT_DIR
+
+#time_design -post_cts -report_dir $REPORT_DIR
+#time_design -post_cts -hold -report_dir $REPORT_DIR

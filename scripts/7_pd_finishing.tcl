@@ -5,10 +5,10 @@ set BEST_PARASITICS "$REPORT_DIR/picorv32_axi_worst.spef"
 set DRC_OUT "$REPORT_DIR/picorv32_axi.drc.rpt"
 set CONN_OUT "$REPORT_DIR/picorv32_axi_connectivity.rpt"
 
-set OUTPUT_DIR "physical_design/files/output_${DATE}"
-set GDS_OUT "$OUTPUT_DIR/picorv32_axi.gds"
-set DEF_OUT "$OUTPUT_DIR/picorv32_axi.def"
-set NETLIST_OUT "$OUTPUT_DIR/picorv32_axi_signoff.v"
+set OUTPUT_DIR "physical_design/files"
+set GDS_OUT "$OUTPUT_DIR/system_top.gds"
+set DEF_OUT "$OUTPUT_DIR/system_top.def"
+set NETLIST_OUT "$OUTPUT_DIR/system_top_signoff.v"
 
 # verify DRC
 set_db check_drc_area {0 0 0 0}
@@ -36,10 +36,10 @@ write_parasitics -rc_corner best_case -spef_file $BEST_PARASITICS
 
 set_db timing_analysis_type ocv
 set_db timing_analysis_cppr both
-time_design -post_route
-time_design -post_route -hold
+time_design -signoff
+time_design -signoff -hold
 
-write_stream $GDS_OUT -map_file {/ip/tsmc/tsmc16adfp/tech/APR/N16ADFP_APR_Innovus/N16ADFP_APR_Innovus_Gdsout_11M.10a.map} -lib_name DesignLib -structure_name picorv32_axi -unit 2000 -mode all
+write_stream $GDS_OUT -map_file /ip/tsmc/tsmc16adfp/tech/APR/N16ADFP_APR_Innovus/N16ADFP_APR_Innovus_Gdsout_11M.10a.map -lib_name DesignLib -structure_name system_top -merge { /ip/tsmc/tsmc16adfp/stdcell/GDS/N16ADFP_StdCell.gds /ip/tsmc/tsmc16adfp/sram/GDS/N16ADFP_SRAM_100a.gds /ip/tsmc/tsmc16adfp/stdio/GDS/N16ADFP_StdIO.gds /ip/tsmc/tsmc16adfp/pll/GDS/n16adfp_pll_100a.gds } -uniquify_cell_names -unit 1000 -mode all
 
 write_def -floorplan -netlist -routing $DEF_OUT
 

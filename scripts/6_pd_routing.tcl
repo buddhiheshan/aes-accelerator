@@ -22,11 +22,14 @@ route_design -global_detail
 
 set fillerCells [list FILL16BWP16P90, FILL16BWP20P90, FILL1BWP16P90, FILL1BWP20P90, FILL2BWP16P90, FILL2BWP20P90, FILL32BWP16P90, FILL32BWP20P90, FILL3BWP16P90, FILL3BWP20P90, FILL4BWP16P90, FILL4BWP20P90, FILL64BWP16P90, FILL64BWP20P90, FILL8BWP16P90, FILL8BWP20P90]
 
-time_design -post_route -report_dir $REPORT_DIR
 opt_design -post_route -report_dir $REPORT_DIR
 opt_design -post_route -hold -report_dir $REPORT_DIR
 opt_design -post_route -hold -setup -report_dir $REPORT_DIR
 
+set_db timing_analysis_type ocv
+set_db timing_analysis_cppr both
+time_design -post_route
+time_design -post_route -hold
 
 #getFillerMode -quiet
-#add_fillers -base_cells FILL8BWP20P90 FILL8BWP16P90 FILL64BWP20P90 FILL64BWP16P90 FILL4BWP20P90 FILL4BWP16P90 FILL3BWP20P90 FILL3BWP16P90 FILL32BWP20P90 FILL32BWP16P90 FILL2BWP20P90 FILL2BWP16P90 FILL1BWP20P90 FILL1BWP16P90 FILL16BWP20P90 FILL16BWP16P90 -prefix FILLER
+add_fillers -base_cells $fillerCells -prefix FILLER

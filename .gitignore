@@ -14,3 +14,7 @@ novas*
 alib-52
 work
 moduleparamid
+rtl/build/
+rtl/SRAM/build/
+rtl/aes/build/
+rtl/cpu/build/ 

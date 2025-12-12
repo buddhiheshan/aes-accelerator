@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module system_tb;
+module tb_system_top;
 
     // --- 1. Testbench Signals (Clock and Reset) ---
     reg clk;
@@ -19,13 +19,13 @@ module system_tb;
         #200;           // Hold reset for 20 cycles
         resetn = 1;     // Release reset
         
-        #5000000;       // Run simulation for 5ms then stop
+        #50000;       // Run simulation for 5ms then stop
         $display("--- Simulation Timeout ---");
         $finish;
     end
 
     // --- 4. Instantiate the Design Under Test (DUT) ---
-    system_rtl u_dut (
+    system_top u_dut (
         .clk    (clk),
         .resetn (resetn),
         .trap   (trap)
@@ -42,7 +42,7 @@ module system_tb;
         integer row_idx, col_idx;
 
         // A. Load Hex File into Buffer
-        $readmemh("aestest.hex", temp_mem);
+        $readmemh("../software/aestest.hex", temp_mem);
 
         // Wait for reset to be released to ensure the DUT is ready
         @(posedge clk);
@@ -77,7 +77,7 @@ module system_tb;
     end
     initial begin
         $fsdbDumpfile("dump.fsdb");
-        $fsdbDumpvars(0, system_tb); // Dump all variables in the tb and below
+        $fsdbDumpvars(0, tb_system_top); // Dump all variables in the tb and below
     end
 
 endmodule

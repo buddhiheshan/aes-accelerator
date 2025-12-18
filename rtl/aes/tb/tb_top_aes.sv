@@ -337,4 +337,9 @@ module tb_top_aes;
     $finish;
   end
 
+   initial begin
+    // Toggle depending on your sim:
+    $dumpfile("top_aes.vcd");
+    $dumpvars(0, tb_top_aes);
+  end
 endmodule

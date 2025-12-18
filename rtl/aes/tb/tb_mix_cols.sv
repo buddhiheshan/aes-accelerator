@@ -247,7 +247,7 @@ module tb_mix_cols;
     // Waveform dump
     // --------------------------------
     initial begin
-        $dumpfile("wave.vcd");
+        $dumpfile("mix_cols.vcd");
         $dumpvars(0, tb_mix_cols);
     end
 

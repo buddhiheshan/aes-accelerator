@@ -82,11 +82,11 @@ module tb_sub_bytes;
   // ------------------------------------------------
   initial begin
     // Toggle depending on your sim:
-    $fsdbDumpfile("dump.fsdb");
+    $fsdbDumpfile("sub_bytes.fsdb");
     $fsdbDumpvars(0, tb_sub_bytes);
     // For GTKWave:
-    // $dumpfile("dump.vcd");
-    // $dumpvars(0, tb_sub_bytes);
+    $dumpfile("sub_bytes.vcd");
+    $dumpvars(0, tb_sub_bytes);
   end
 
   // ------------------------------------------------

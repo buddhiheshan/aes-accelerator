@@ -29,7 +29,7 @@ aes_core dut(
 );
 
 initial begin
-    $dumpfile("dump.vcd");  
+    $dumpfile("aes_core.vcd");  
     $dumpvars;
   end
 

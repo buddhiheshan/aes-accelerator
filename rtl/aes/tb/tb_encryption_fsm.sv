@@ -8,7 +8,7 @@ module tb_encryption_fsm ();
     always #5 clk = ~clk;
 
     initial begin
-        $dumpfile("wave.vcd");
+        $dumpfile("encryption_fsm.vcd");
         $dumpvars(0, tb_encryption_fsm);
     end
 

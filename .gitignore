@@ -18,3 +18,10 @@ rtl/build/
 rtl/SRAM/build/
 rtl/aes/build/
 rtl/cpu/build/ 
+*.log*
+*.svf
+*.cmd*
+*.rpt*
+*.bin
+system_top*
+timingReports

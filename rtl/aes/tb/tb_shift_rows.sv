@@ -192,7 +192,7 @@ module tb_shift_rows ();
     // Waveform dump
     // -------------------------------------------------
     initial begin
-        $dumpfile("wave.vcd");
+        $dumpfile("shift_rows.vcd");
         $dumpvars(0, tb_shift_rows);
     end
 

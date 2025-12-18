@@ -25,7 +25,7 @@ timeunit 1ns/1ps;
     );
 
 initial begin
-    $dumpfile("dump.vcd");  
+    $dumpfile("key_expansion.vcd");  
     $dumpvars;
   end
 

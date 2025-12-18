@@ -25,7 +25,7 @@ module tb_pipeline_reg ();
 
     // Waveform dump
     initial begin
-        $dumpfile("wave.vcd");
+        $dumpfile("pipeline_reg.vcd");
         $dumpvars(0, tb_pipeline_reg);
     end
 

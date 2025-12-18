@@ -187,7 +187,7 @@ module tb_add_roundkey;
     // Waveform dump
     // -----------------------------
     initial begin
-        $dumpfile("wave.vcd");
+        $dumpfile("add_roundkey.vcd");
         $dumpvars(0, tb_add_roundkey);
     end
 

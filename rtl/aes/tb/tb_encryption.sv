@@ -57,7 +57,7 @@ module tb_encryption;
   // Waves
   // -----------------------------
   initial begin
-    $dumpfile("dump.vcd");
+    $dumpfile("encryption.vcd");
     $dumpvars(0, tb_encryption);
   end
 

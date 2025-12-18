@@ -82,7 +82,7 @@ module tb_decryption;
   // Waves
   // ---------------------------------
   initial begin
-    $dumpfile("dump.vcd");
+    $dumpfile("decryption.vcd");
     $dumpvars(0, tb_decryption);
   end
 

@@ -85,8 +85,8 @@ module tb_sub_bytes_inv;
     $fsdbDumpfile("tb_sub_bytes_inv.fsdb");
     $fsdbDumpvars(0, tb_sub_bytes_inv);
     // Or VCD if you prefer:
-    // $dumpfile("inv_sub_bytes.vcd");
-    // $dumpvars(0, tb_inv_sub_bytes);
+    $dumpfile("sub_bytes_inv.vcd");
+    $dumpvars(0, tb_sub_bytes_inv);
   end
 
   // ------------------------------------------------

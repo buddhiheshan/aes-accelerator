@@ -42,7 +42,7 @@ module tb_system_top;
         integer row_idx, col_idx;
 
         // A. Load Hex File into Buffer
-        $readmemh("../software/aestest.hex", temp_mem);
+        $readmemh("../software/enc_dec_firmware.hex", temp_mem);
 
         // Wait for reset to be released to ensure the DUT is ready
         @(posedge clk);
@@ -78,6 +78,8 @@ module tb_system_top;
     initial begin
         $fsdbDumpfile("dump.fsdb");
         $fsdbDumpvars(0, tb_system_top); // Dump all variables in the tb and below
+        $dumpfile("dump.vcd");
+        $dumpvars(); 
     end
 
 endmodule

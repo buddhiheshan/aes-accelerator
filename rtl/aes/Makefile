@@ -39,6 +39,11 @@ $(BUILD_DIR):
 
 clean:
 	rm -rf $(BUILD_DIR)
+	rm *.vcd
+	rm *.fsdb
+	rm *.log
+	rm *.key
+	rm -rf csrc
 
 help:
 	@echo "Make targets:"

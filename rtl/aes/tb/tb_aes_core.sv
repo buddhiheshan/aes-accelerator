@@ -80,12 +80,27 @@ initial begin
     #500;
     check_output(cipher_text_out, 128'h3925841d02dc09fbdc118597196a0b32);
 
+    #50;
     @(negedge clk);
-    start_enc = 1'b1;
+    set_plain_text = 1'b1;
+    plain_text_in = 0;
 
     @(negedge clk);
+    set_plain_text = 1'b0;
+
     @(negedge clk);
-    start_enc = 1'b0;
+    set_cipher_text = 1'b1;
+    cipher_text_in = 128'h3925841d02dc09fbdc118597196a0b32;
+
+    @(negedge clk);
+    set_cipher_text = 1'b0;
+
+    @(negedge clk);
+    start_dec = 1'b1;
+
+    @(negedge clk);
+    start_dec = 1'b0;
+    #500;
     check_output(plain_text_out, 128'h3243f6a8885a308d313198a2e0370734);
 
 $finish;
